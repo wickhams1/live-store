@@ -11,6 +11,7 @@
   "scripts": {
     "build": "tsc -b",
     "start:server": "yarn workspace server start",
+    "dev:server": "yarn workspace server dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

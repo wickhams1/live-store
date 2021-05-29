@@ -4,7 +4,9 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "node ./src",
+    "start": "yarn build && node ./dist/src",
+    "dev": "nodemon --watch './**/*.ts' --exec 'ts-node' ./src/index.ts",
+    "build": "tsc -b",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -14,6 +16,8 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.12",
+    "nodemon": "^2.0.7",
+    "ts-node": "^10.0.0",
     "typescript": "^4.3.2"
   }
 }
