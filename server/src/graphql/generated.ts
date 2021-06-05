@@ -13,21 +13,36 @@ export type Scalars = {
   Float: number;
 };
 
-export type Person = {
-  __typename?: 'Person';
-  firstName: Scalars['String'];
-  lastName: Scalars['String'];
-  greeting: Scalars['String'];
+export type Mutation = {
+  __typename?: 'Mutation';
+  _empty?: Maybe<Scalars['String']>;
+  createUser?: Maybe<User>;
+};
+
+
+export type MutationCreateUserArgs = {
+  user: UserInput;
 };
 
 export type Query = {
   __typename?: 'Query';
-  hello?: Maybe<Scalars['String']>;
-  person?: Maybe<Person>;
+  _empty?: Maybe<Scalars['String']>;
+  greeting?: Maybe<Scalars['String']>;
 };
 
 
-export type QueryPersonArgs = {
+export type QueryGreetingArgs = {
+  user: UserInput;
+};
+
+export type User = {
+  __typename?: 'User';
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  id: Scalars['String'];
+};
+
+export type UserInput = {
   firstName: Scalars['String'];
   lastName: Scalars['String'];
 };
@@ -110,35 +125,45 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Person: ResolverTypeWrapper<Person>;
+  Mutation: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Query: ResolverTypeWrapper<{}>;
+  User: ResolverTypeWrapper<User>;
+  UserInput: UserInput;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Person: Person;
+  Mutation: {};
   String: Scalars['String'];
   Query: {};
+  User: User;
+  UserInput: UserInput;
   Boolean: Scalars['Boolean'];
 };
 
-export type PersonResolvers<ContextType = any, ParentType extends ResolversParentTypes['Person'] = ResolversParentTypes['Person']> = {
-  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  greeting?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  createUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'user'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  hello?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  person?: Resolver<Maybe<ResolversTypes['Person']>, ParentType, ContextType, RequireFields<QueryPersonArgs, 'firstName' | 'lastName'>>;
+  _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  greeting?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryGreetingArgs, 'user'>>;
+};
+
+export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
-  Person?: PersonResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
 };
 
 

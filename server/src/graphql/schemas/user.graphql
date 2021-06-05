@@ -1,0 +1,18 @@
+input UserInput {
+  firstName: String!
+  lastName: String!
+}
+
+extend type Query {
+  greeting(user: UserInput!): String
+}
+
+extend type Mutation {
+  createUser(user: UserInput!): User
+}
+
+type User {
+  firstName: String!
+  lastName: String!
+  id: String!
+}

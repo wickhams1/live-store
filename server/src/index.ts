@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import schema from './graphql/schemasMap';
 
@@ -10,10 +10,6 @@ const server = new ApolloServer({
 });
 
 server.applyMiddleware({ app, path: '/graphql' });
-
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!');
-});
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
