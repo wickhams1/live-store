@@ -5,14 +5,19 @@ input UserInput {
 
 extend type Query {
   greeting(user: UserInput!): String
+  findUser(id: String!): UserResponse
 }
 
 extend type Mutation {
-  createUser(user: UserInput!): User
+  createUser(user: UserInput!): UserResponse
 }
 
 type User {
   firstName: String!
   lastName: String!
   id: String!
+}
+
+type UserResponse {
+  user: User
 }
