@@ -12,6 +12,6 @@
     "declarationMap": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "src/*"],
   "exclude": ["node_modules", "dist"]
 }

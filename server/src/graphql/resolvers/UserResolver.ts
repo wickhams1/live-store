@@ -1,8 +1,13 @@
 import { IResolvers } from 'graphql-tools';
 import { Scalars, QueryGreetingArgs, MutationCreateUserArgs, User } from '../generated';
-import { v4 } from 'uuid';
 
-const UserResolver: IResolvers = {
+import { CreateUser } from 'src/services/UsersService';
+
+export interface Dependencies {
+  createUser: CreateUser;
+}
+
+const UserResolver = ({ createUser }: Dependencies): IResolvers => ({
   Query: {
     async greeting(_: void, { user: { firstName, lastName } }: QueryGreetingArgs): Promise<Scalars['String']> {
       return `Hello ${firstName} ${lastName}!`;
@@ -10,14 +15,10 @@ const UserResolver: IResolvers = {
   },
 
   Mutation: {
-    async createUser(_: void, { user: { firstName, lastName } }: MutationCreateUserArgs): Promise<User> {
-      return {
-        firstName,
-        lastName,
-        id: v4(),
-      };
+    async createUser(_: void, { user }: MutationCreateUserArgs): Promise<User> {
+      return createUser(user);
     },
   },
-};
+});
 
 export default UserResolver;
