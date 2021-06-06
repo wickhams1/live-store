@@ -21,6 +21,8 @@
     "graphql-import-node": "^0.0.4",
     "graphql-tools": "^7.0.5",
     "lodash": "^4.17.21",
+    "sqlite3": "^5.0.2",
+    "typeorm": "^0.2.34",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

@@ -10,7 +10,9 @@
     "allowJs": false,
     "declaration": true,
     "declarationMap": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
   "include": ["src/**/*", "src/*"],
   "exclude": ["node_modules", "dist"]
