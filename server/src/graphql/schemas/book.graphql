@@ -1,0 +1,22 @@
+input BookInput {
+  author: String!
+  title: String!
+}
+
+extend type Query {
+  findBook(id: String!): BookResponse
+}
+
+extend type Mutation {
+  createBook(book: BookInput!): BookResponse
+}
+
+type Book {
+  id: String!
+  author: String!
+  title: String!
+}
+
+type BookResponse {
+  book: Book
+}

@@ -13,10 +13,33 @@ export type Scalars = {
   Float: number;
 };
 
+export type Book = {
+  __typename?: 'Book';
+  id: Scalars['String'];
+  author: Scalars['String'];
+  title: Scalars['String'];
+};
+
+export type BookInput = {
+  author: Scalars['String'];
+  title: Scalars['String'];
+};
+
+export type BookResponse = {
+  __typename?: 'BookResponse';
+  book?: Maybe<Book>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   _empty?: Maybe<Scalars['String']>;
+  createBook?: Maybe<BookResponse>;
   createUser?: Maybe<UserResponse>;
+};
+
+
+export type MutationCreateBookArgs = {
+  book: BookInput;
 };
 
 
@@ -27,8 +50,14 @@ export type MutationCreateUserArgs = {
 export type Query = {
   __typename?: 'Query';
   _empty?: Maybe<Scalars['String']>;
+  findBook?: Maybe<BookResponse>;
   findUser?: Maybe<UserResponse>;
   greeting?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryFindBookArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -136,8 +165,11 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Mutation: ResolverTypeWrapper<{}>;
+  Book: ResolverTypeWrapper<Book>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  BookInput: BookInput;
+  BookResponse: ResolverTypeWrapper<BookResponse>;
+  Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User>;
   UserInput: UserInput;
@@ -147,8 +179,11 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Mutation: {};
+  Book: Book;
   String: Scalars['String'];
+  BookInput: BookInput;
+  BookResponse: BookResponse;
+  Mutation: {};
   Query: {};
   User: User;
   UserInput: UserInput;
@@ -156,13 +191,27 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
 };
 
+export type BookResolvers<ContextType = any, ParentType extends ResolversParentTypes['Book'] = ResolversParentTypes['Book']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  author?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BookResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['BookResponse'] = ResolversParentTypes['BookResponse']> = {
+  book?: Resolver<Maybe<ResolversTypes['Book']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  createBook?: Resolver<Maybe<ResolversTypes['BookResponse']>, ParentType, ContextType, RequireFields<MutationCreateBookArgs, 'book'>>;
   createUser?: Resolver<Maybe<ResolversTypes['UserResponse']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'user'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  findBook?: Resolver<Maybe<ResolversTypes['BookResponse']>, ParentType, ContextType, RequireFields<QueryFindBookArgs, 'id'>>;
   findUser?: Resolver<Maybe<ResolversTypes['UserResponse']>, ParentType, ContextType, RequireFields<QueryFindUserArgs, 'id'>>;
   greeting?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryGreetingArgs, 'user'>>;
 };
@@ -180,6 +229,8 @@ export type UserResponseResolvers<ContextType = any, ParentType extends Resolver
 };
 
 export type Resolvers<ContextType = any> = {
+  Book?: BookResolvers<ContextType>;
+  BookResponse?: BookResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
