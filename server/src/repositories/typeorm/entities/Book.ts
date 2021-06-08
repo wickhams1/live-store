@@ -12,7 +12,7 @@ export class Book {
   @Column()
   title: string;
 
-  @OneToOne(() => User, { cascade: true })
+  @OneToOne(() => User, { eager: true, cascade: true })
   @JoinColumn()
   borrower: User;
 }

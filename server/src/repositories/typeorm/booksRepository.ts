@@ -22,7 +22,6 @@ const booksRepository: BooksRepository = {
     return getRepository(BookEntity).find();
   },
   updateBook: (book: Book) => {
-    console.log('UPDATING BOOK', { book });
     return getConnection().manager.save(book);
   },
 };
