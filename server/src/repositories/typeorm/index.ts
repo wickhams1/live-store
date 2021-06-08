@@ -5,7 +5,7 @@ createConnection({
   database: __dirname + '/testDB.sqlite',
   entities: [__dirname + '/entities/*.ts'],
   synchronize: true,
-  logging: true,
+  logging: false,
 });
 
 export { default as usersRepository } from './usersRepository';

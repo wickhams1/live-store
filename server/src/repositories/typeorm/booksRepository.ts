@@ -1,6 +1,6 @@
 import { Book } from 'src/types/entities';
 import { BooksRepository } from 'src/types/repositories';
-import { getConnection } from 'typeorm';
+import { getConnection, getRepository } from 'typeorm';
 import { v4 } from 'uuid';
 import { Book as BookEntity } from './entities';
 
@@ -17,6 +17,9 @@ const booksRepository: BooksRepository = {
   },
   findBook: (id: string) => {
     return getConnection().manager.findOne(BookEntity, id);
+  },
+  getBooks: () => {
+    return getRepository(BookEntity).find();
   },
 };
 

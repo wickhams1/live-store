@@ -5,6 +5,7 @@ input BookInput {
 
 extend type Query {
   findBook(id: String!): BookResponse
+  getBooks: BooksListResponse
 }
 
 extend type Mutation {
@@ -19,4 +20,8 @@ type Book {
 
 type BookResponse {
   book: Book
+}
+
+type BooksListResponse {
+  books: [Book]
 }

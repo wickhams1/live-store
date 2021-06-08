@@ -30,6 +30,11 @@ export type BookResponse = {
   book?: Maybe<Book>;
 };
 
+export type BooksListResponse = {
+  __typename?: 'BooksListResponse';
+  books?: Maybe<Array<Maybe<Book>>>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   _empty?: Maybe<Scalars['String']>;
@@ -52,6 +57,7 @@ export type Query = {
   _empty?: Maybe<Scalars['String']>;
   findBook?: Maybe<BookResponse>;
   findUser?: Maybe<UserResponse>;
+  getBooks?: Maybe<BooksListResponse>;
   greeting?: Maybe<Scalars['String']>;
 };
 
@@ -169,6 +175,7 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']>;
   BookInput: BookInput;
   BookResponse: ResolverTypeWrapper<BookResponse>;
+  BooksListResponse: ResolverTypeWrapper<BooksListResponse>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User>;
@@ -183,6 +190,7 @@ export type ResolversParentTypes = {
   String: Scalars['String'];
   BookInput: BookInput;
   BookResponse: BookResponse;
+  BooksListResponse: BooksListResponse;
   Mutation: {};
   Query: {};
   User: User;
@@ -203,6 +211,11 @@ export type BookResponseResolvers<ContextType = any, ParentType extends Resolver
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type BooksListResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['BooksListResponse'] = ResolversParentTypes['BooksListResponse']> = {
+  books?: Resolver<Maybe<Array<Maybe<ResolversTypes['Book']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   createBook?: Resolver<Maybe<ResolversTypes['BookResponse']>, ParentType, ContextType, RequireFields<MutationCreateBookArgs, 'book'>>;
@@ -213,6 +226,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   findBook?: Resolver<Maybe<ResolversTypes['BookResponse']>, ParentType, ContextType, RequireFields<QueryFindBookArgs, 'id'>>;
   findUser?: Resolver<Maybe<ResolversTypes['UserResponse']>, ParentType, ContextType, RequireFields<QueryFindUserArgs, 'id'>>;
+  getBooks?: Resolver<Maybe<ResolversTypes['BooksListResponse']>, ParentType, ContextType>;
   greeting?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryGreetingArgs, 'user'>>;
 };
 
@@ -231,6 +245,7 @@ export type UserResponseResolvers<ContextType = any, ParentType extends Resolver
 export type Resolvers<ContextType = any> = {
   Book?: BookResolvers<ContextType>;
   BookResponse?: BookResponseResolvers<ContextType>;
+  BooksListResponse?: BooksListResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
