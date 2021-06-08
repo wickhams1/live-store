@@ -6,4 +6,5 @@ export interface BooksRepository {
   createBook: (book: BookInput) => Promise<Book>;
   findBook: (id: string) => Promise<Book | undefined>;
   getBooks: () => Promise<Book[]>;
+  updateBook: (book: Book) => Promise<Book>;
 }

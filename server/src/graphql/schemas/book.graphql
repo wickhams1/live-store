@@ -10,12 +10,14 @@ extend type Query {
 
 extend type Mutation {
   createBook(book: BookInput!): BookResponse
+  borrowBook(bookId: String!, userId: String!): BookResponse
 }
 
 type Book {
   id: String!
   author: String!
   title: String!
+  borrower: User
 }
 
 type BookResponse {

@@ -8,7 +8,10 @@ const app = express();
 const port = 3000;
 
 const server = new ApolloServer({
-  schema: schema({ ...usersService({ usersRepo: usersRepository }), ...booksService({ booksRepo: booksRepository }) }),
+  schema: schema({
+    ...usersService({ usersRepo: usersRepository }),
+    ...booksService({ booksRepo: booksRepository, usersRepo: usersRepository }),
+  }),
 });
 
 server.applyMiddleware({ app, path: '/graphql' });

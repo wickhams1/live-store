@@ -1,15 +1,22 @@
 import { IResolvers } from 'graphql-tools';
-import { MutationCreateBookArgs, QueryFindBookArgs, BookResponse, BooksListResponse } from '../generated';
+import {
+  MutationCreateBookArgs,
+  QueryFindBookArgs,
+  BookResponse,
+  BooksListResponse,
+  MutationBorrowBookArgs,
+} from '../generated';
 
-import { CreateBook, FindBook, GetBooks } from 'src/services/BooksService';
+import { CreateBook, FindBook, GetBooks, SetBorrower } from 'src/services/BooksService';
 
 export interface Dependencies {
   createBook: CreateBook;
   findBook: FindBook;
   getBooks: GetBooks;
+  setBorrower: SetBorrower;
 }
 
-const BookResolver = ({ createBook, findBook, getBooks }: Dependencies): IResolvers => ({
+const BookResolver = ({ createBook, findBook, getBooks, setBorrower }: Dependencies): IResolvers => ({
   Query: {
     async findBook(_: void, { id }: QueryFindBookArgs): Promise<BookResponse> {
       const book = await findBook(id);
@@ -25,6 +32,10 @@ const BookResolver = ({ createBook, findBook, getBooks }: Dependencies): IResolv
     async createBook(_: void, { book }: MutationCreateBookArgs): Promise<BookResponse> {
       const createdBook = await createBook(book);
       return { book: createdBook };
+    },
+    async borrowBook(_: void, { userId, bookId }: MutationBorrowBookArgs): Promise<BookResponse> {
+      const book = await setBorrower(bookId, userId);
+      return { book };
     },
   },
 });
