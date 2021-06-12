@@ -1,7 +1,7 @@
 import { IResolvers } from 'graphql-tools';
 import { MutationCreateItemArgs, QueryFindItemArgs, ItemResponse, ItemsListResponse } from '../generated';
 
-import { ItemsService } from 'src/services/ItemsService';
+import { ItemsService } from 'src/services';
 
 export interface Dependencies {
   itemsService: ItemsService;

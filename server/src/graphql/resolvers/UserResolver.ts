@@ -1,7 +1,7 @@
 import { IResolvers } from 'graphql-tools';
 import { Scalars, QueryGreetingArgs, MutationCreateUserArgs, QueryFindUserArgs, UserResponse } from '../generated';
 
-import { UsersService } from 'src/services/usersService';
+import { UsersService } from 'src/services';
 
 export interface Dependencies {
   usersService: UsersService;

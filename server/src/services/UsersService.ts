@@ -1,10 +1,14 @@
 import { User } from 'src/types/entities';
 import { UsersRepository } from 'src/types/repositories';
 
+interface Dependencies {
+  usersRepo: UsersRepository;
+}
+
 export type CreateUser = (user: Omit<User, 'id'>) => Promise<User>;
 
 export const createUser =
-  ({ usersRepo }: { usersRepo: UsersRepository }): CreateUser =>
+  ({ usersRepo }: Dependencies): CreateUser =>
   (user) => {
     return usersRepo.createUser(user);
   };
@@ -12,7 +16,7 @@ export const createUser =
 export type FindUser = (id: string) => Promise<User | undefined>;
 
 export const findUser =
-  ({ usersRepo }: { usersRepo: UsersRepository }): FindUser =>
+  ({ usersRepo }: Dependencies): FindUser =>
   (id) => {
     return usersRepo.findUser(id);
   };
@@ -22,7 +26,7 @@ export type UsersService = {
   findUser: FindUser;
 };
 
-export const usersService = (dependencies: { usersRepo: UsersRepository }): UsersService => ({
+export const usersService = (dependencies: Dependencies): UsersService => ({
   createUser: createUser(dependencies),
   findUser: findUser(dependencies),
 });
