@@ -5,11 +5,10 @@ import { v4 } from 'uuid';
 import { Item as ItemEntity } from './entities';
 
 const itemsRepository: ItemsRepository = {
-  createItem: async ({ author, title }: Item) => {
+  createItem: async ({ name }: Item) => {
     const item = new ItemEntity();
     item.id = v4();
-    item.author = author;
-    item.title = title;
+    item.name = name;
 
     await getConnection().manager.save(item).then();
 

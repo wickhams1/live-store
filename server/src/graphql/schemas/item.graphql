@@ -1,6 +1,6 @@
 input ItemInput {
-  author: String!
-  title: String!
+  name: String!
+  availableQuantity: String!
 }
 
 extend type Query {
@@ -10,14 +10,11 @@ extend type Query {
 
 extend type Mutation {
   createItem(item: ItemInput!): ItemResponse
-  borrowItem(itemId: String!, userId: String!): ItemResponse
 }
 
 type Item {
   id: String!
-  author: String!
-  title: String!
-  borrower: User
+  name: String!
 }
 
 type ItemResponse {

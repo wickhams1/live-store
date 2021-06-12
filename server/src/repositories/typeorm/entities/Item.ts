@@ -1,5 +1,4 @@
-import { Entity, Column, PrimaryColumn, OneToOne, JoinColumn } from 'typeorm';
-import { User } from '.';
+import { Entity, Column, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class Item {
@@ -7,12 +6,5 @@ export class Item {
   id: string;
 
   @Column()
-  author: string;
-
-  @Column()
-  title: string;
-
-  @OneToOne(() => User, { eager: true, cascade: true })
-  @JoinColumn()
-  borrower: User;
+  name: string;
 }

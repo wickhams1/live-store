@@ -32,29 +32,14 @@ export const getItems =
 
 export type SetBorrower = (itemId: string, userId: string) => Promise<Item | undefined>;
 
-export const setBorrower =
-  ({ itemsRepo, usersRepo }: Dependencies): SetBorrower =>
-  async (itemId: string, userId: string) => {
-    const item = await itemsRepo.findItem(itemId);
-    const user = await usersRepo.findUser(userId);
-
-    if (!item || !user || item.borrower) return;
-
-    item.borrower = user;
-
-    return itemsRepo.updateItem(item);
-  };
-
 export type ItemsService = {
   createItem: CreateItem;
   findItem: FindItem;
   getItems: GetItems;
-  setBorrower: SetBorrower;
 };
 
 export const itemsService = (dependencies: Dependencies): ItemsService => ({
   createItem: createItem(dependencies),
   findItem: findItem(dependencies),
   getItems: getItems(dependencies),
-  setBorrower: setBorrower(dependencies),
 });
