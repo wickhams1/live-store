@@ -8,6 +8,12 @@ interface Dependencies {
   productsRepo: ProductsRepository;
 }
 
+class ProductNotFoundError extends Error {
+  constructor() {
+    super('Product not found');
+  }
+}
+
 export const createItem =
   ({ itemsRepo, productsRepo }: Dependencies): CreateItem =>
   async (itemInput) => {
@@ -16,7 +22,7 @@ export const createItem =
     const product = await productsRepo.findProduct(productId);
 
     if (!product) {
-      throw new Error();
+      throw new ProductNotFoundError();
     }
 
     return itemsRepo.createItem({ product });
