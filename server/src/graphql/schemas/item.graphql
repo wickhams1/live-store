@@ -1,5 +1,5 @@
 input ItemInput {
-  name: String!
+  productId: String!
 }
 
 extend type Query {
@@ -13,7 +13,7 @@ extend type Mutation {
 
 type Item {
   id: String!
-  name: String!
+  product: Product!
 }
 
 type ItemResponse {

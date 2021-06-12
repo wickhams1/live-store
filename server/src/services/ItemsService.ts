@@ -1,17 +1,25 @@
 import { Item } from 'src/types/entities';
-import { ItemsRepository, UsersRepository } from 'src/types/repositories';
+import { ItemsRepository, ProductsRepository } from 'src/types/repositories';
 
-export type CreateItem = (item: Omit<Item, 'id'>) => Promise<Item>;
+export type CreateItem = (item: Omit<Item, 'id' | 'product'> & { productId: string }) => Promise<Item>;
 
 interface Dependencies {
   itemsRepo: ItemsRepository;
-  usersRepo: UsersRepository;
+  productsRepo: ProductsRepository;
 }
 
 export const createItem =
-  ({ itemsRepo }: Dependencies): CreateItem =>
-  (item) => {
-    return itemsRepo.createItem(item);
+  ({ itemsRepo, productsRepo }: Dependencies): CreateItem =>
+  async (itemInput) => {
+    const { productId } = itemInput;
+
+    const product = await productsRepo.findProduct(productId);
+
+    if (!product) {
+      throw new Error();
+    }
+
+    return itemsRepo.createItem({ product });
   };
 
 export type FindItem = (id: string) => Promise<Item | undefined>;

@@ -22,8 +22,8 @@ const ItemResolver = ({ createItem, findItem, getItems }: Dependencies): IResolv
   },
 
   Mutation: {
-    async createItem(_: void, { item }: MutationCreateItemArgs): Promise<ItemResponse> {
-      const createdItem = await createItem(item);
+    async createItem(_: void, { item: itemInput }: MutationCreateItemArgs): Promise<ItemResponse> {
+      const createdItem = await createItem(itemInput);
       return { item: createdItem };
     },
   },

@@ -1,4 +1,5 @@
+import { Product } from '.';
 export interface Item {
   id: string;
-  name: string;
+  product: Product;
 }

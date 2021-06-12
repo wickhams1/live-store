@@ -16,11 +16,11 @@ export type Scalars = {
 export type Item = {
   __typename?: 'Item';
   id: Scalars['String'];
-  name: Scalars['String'];
+  product: Product;
 };
 
 export type ItemInput = {
-  name: Scalars['String'];
+  productId: Scalars['String'];
 };
 
 export type ItemResponse = {
@@ -240,7 +240,7 @@ export type ResolversParentTypes = {
 
 export type ItemResolvers<ContextType = any, ParentType extends ResolversParentTypes['Item'] = ResolversParentTypes['Item']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  product?: Resolver<ResolversTypes['Product'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

@@ -30,15 +30,15 @@
             "deprecationReason": null
           },
           {
-            "name": "name",
+            "name": "product",
             "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
+                "kind": "OBJECT",
+                "name": "Product",
                 "ofType": null
               }
             },
@@ -68,7 +68,7 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "name",
+            "name": "productId",
             "description": null,
             "type": {
               "kind": "NON_NULL",

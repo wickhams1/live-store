@@ -1,10 +1,11 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, PrimaryColumn, ManyToOne } from 'typeorm';
+import { Product } from '.';
 
 @Entity()
 export class Item {
   @PrimaryColumn()
   id: string;
 
-  @Column()
-  name: string;
+  @ManyToOne(() => Product, { eager: true })
+  product: Product;
 }
