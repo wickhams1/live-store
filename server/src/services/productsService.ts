@@ -1,11 +1,10 @@
 import { Product } from 'src/types/entities';
-import { ProductsRepository, UsersRepository } from 'src/types/repositories';
+import { ProductsRepository } from 'src/types/repositories';
 
 export type CreateProduct = (product: Omit<Product, 'id'>) => Promise<Product>;
 
 interface Dependencies {
   productsRepo: ProductsRepository;
-  usersRepo: UsersRepository;
 }
 
 export const createProduct =

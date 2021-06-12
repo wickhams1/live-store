@@ -1,15 +1,15 @@
 import { IResolvers } from 'graphql-tools';
 import { MutationCreateProductArgs, QueryFindProductArgs, ProductResponse, ProductsListResponse } from '../generated';
 
-import { CreateProduct, FindProduct, GetProducts } from 'src/services/productsService';
+import { ProductsService } from 'src/services/productsService';
 
 export interface Dependencies {
-  createProduct: CreateProduct;
-  findProduct: FindProduct;
-  getProducts: GetProducts;
+  productsService: ProductsService;
 }
 
-const ProductResolver = ({ createProduct, findProduct, getProducts }: Dependencies): IResolvers => ({
+const ProductResolver = ({
+  productsService: { createProduct, findProduct, getProducts },
+}: Dependencies): IResolvers => ({
   Query: {
     async findProduct(_: void, { id }: QueryFindProductArgs): Promise<ProductResponse> {
       const product = await findProduct(id);

@@ -1,14 +1,13 @@
 import { IResolvers } from 'graphql-tools';
 import { Scalars, QueryGreetingArgs, MutationCreateUserArgs, QueryFindUserArgs, UserResponse } from '../generated';
 
-import { CreateUser, FindUser } from 'src/services/usersService';
+import { UsersService } from 'src/services/usersService';
 
 export interface Dependencies {
-  createUser: CreateUser;
-  findUser: FindUser;
+  usersService: UsersService;
 }
 
-const UserResolver = ({ createUser, findUser }: Dependencies): IResolvers => ({
+const UserResolver = ({ usersService: { createUser, findUser } }: Dependencies): IResolvers => ({
   Query: {
     async greeting(_: void, { user: { firstName, lastName } }: QueryGreetingArgs): Promise<Scalars['String']> {
       return `Hello ${firstName} ${lastName}!`;

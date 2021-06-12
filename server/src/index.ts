@@ -9,9 +9,9 @@ const port = 3000;
 
 const server = new ApolloServer({
   schema: schema({
-    ...usersService({ usersRepo: usersRepository }),
-    ...itemsService({ itemsRepo: itemsRepository, productsRepo: productsRepository }),
-    ...productsService({ productsRepo: productsRepository, usersRepo: usersRepository }),
+    usersService: usersService({ usersRepo: usersRepository }),
+    itemsService: itemsService({ itemsRepo: itemsRepository, productsRepo: productsRepository }),
+    productsService: productsService({ productsRepo: productsRepository }),
   }),
 });
 
