@@ -103,6 +103,11 @@ export type QueryFindUserArgs = {
 };
 
 
+export type QueryGetItemsArgs = {
+  productId?: Maybe<Scalars['String']>;
+};
+
+
 export type QueryGreetingArgs = {
   user: UserInput;
 };
@@ -282,7 +287,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   findItem?: Resolver<Maybe<ResolversTypes['ItemResponse']>, ParentType, ContextType, RequireFields<QueryFindItemArgs, 'id'>>;
   findProduct?: Resolver<Maybe<ResolversTypes['ProductResponse']>, ParentType, ContextType, RequireFields<QueryFindProductArgs, 'id'>>;
   findUser?: Resolver<Maybe<ResolversTypes['UserResponse']>, ParentType, ContextType, RequireFields<QueryFindUserArgs, 'id'>>;
-  getItems?: Resolver<Maybe<ResolversTypes['ItemsListResponse']>, ParentType, ContextType>;
+  getItems?: Resolver<Maybe<ResolversTypes['ItemsListResponse']>, ParentType, ContextType, RequireFields<QueryGetItemsArgs, never>>;
   getProducts?: Resolver<Maybe<ResolversTypes['ProductsListResponse']>, ParentType, ContextType>;
   greeting?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryGreetingArgs, 'user'>>;
 };

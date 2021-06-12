@@ -17,8 +17,10 @@ const itemsRepository: ItemsRepository = {
   findItem: (id: string) => {
     return getConnection().manager.findOne(ItemEntity, id);
   },
-  getItems: () => {
-    return getRepository(ItemEntity).find();
+  getItems: async (productId?: string) => {
+    const filter = productId ? { where: { product: { id: productId } } } : undefined;
+
+    return getRepository(ItemEntity).find(filter);
   },
   updateItem: (item: Item) => {
     return getConnection().manager.save(item);

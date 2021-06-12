@@ -4,7 +4,7 @@ input ItemInput {
 
 extend type Query {
   findItem(id: String!): ItemResponse
-  getItems: ItemsListResponse
+  getItems(productId: String): ItemsListResponse
 }
 
 extend type Mutation {

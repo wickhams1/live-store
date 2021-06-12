@@ -1,5 +1,11 @@
 import { IResolvers } from 'graphql-tools';
-import { MutationCreateItemArgs, QueryFindItemArgs, ItemResponse, ItemsListResponse } from '../generated';
+import {
+  MutationCreateItemArgs,
+  QueryFindItemArgs,
+  QueryGetItemsArgs,
+  ItemResponse,
+  ItemsListResponse,
+} from '../generated';
 
 import { ItemsService } from 'src/services';
 
@@ -13,8 +19,8 @@ const ItemResolver = ({ itemsService: { createItem, findItem, getItems } }: Depe
       const item = await findItem(id);
       return item ? { item: item } : {};
     },
-    async getItems(): Promise<ItemsListResponse> {
-      const items = await getItems();
+    async getItems(_: void, { productId }: QueryGetItemsArgs): Promise<ItemsListResponse> {
+      const items = await getItems(productId || undefined);
       return { items };
     },
   },

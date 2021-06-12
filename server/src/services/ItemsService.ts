@@ -36,12 +36,12 @@ export const findItem =
     return itemsRepo.findItem(id);
   };
 
-export type GetItems = () => Promise<Item[]>;
+export type GetItems = (productId?: string) => Promise<Item[]>;
 
 export const getItems =
-  ({ itemsRepo }: Dependencies): GetItems =>
-  () => {
-    return itemsRepo.getItems();
+  ({ itemsRepo, productsRepo }: Dependencies): GetItems =>
+  (productId) => {
+    return itemsRepo.getItems(productId);
   };
 
 export type ItemsService = {
