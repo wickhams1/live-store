@@ -1,0 +1,29 @@
+input ItemInput {
+  author: String!
+  title: String!
+}
+
+extend type Query {
+  findItem(id: String!): ItemResponse
+  getItems: ItemsListResponse
+}
+
+extend type Mutation {
+  createItem(item: ItemInput!): ItemResponse
+  borrowItem(itemId: String!, userId: String!): ItemResponse
+}
+
+type Item {
+  id: String!
+  author: String!
+  title: String!
+  borrower: User
+}
+
+type ItemResponse {
+  item: Item
+}
+
+type ItemsListResponse {
+  items: [Item]
+}

@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryColumn, OneToOne, JoinColumn } from 'typeorm';
 import { User } from '.';
 
 @Entity()
-export class Book {
+export class Item {
   @PrimaryColumn()
   id: string;
 

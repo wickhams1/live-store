@@ -1,5 +1,5 @@
 export { default as UserResolver, Dependencies as UserResolverDependencies } from './UserResolver';
-export { default as BookResolver, Dependencies as BookResolverDependencies } from './BookResolver';
+export { default as ItemResolver, Dependencies as ItemResolverDependencies } from './ItemResolver';
 
 export { Dependencies } from './resolversMap';
 import resolvers from './resolversMap';

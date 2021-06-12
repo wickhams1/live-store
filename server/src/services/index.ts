@@ -1,2 +1,2 @@
 export * from './UsersService';
-export * from './BooksService';
+export * from './ItemsService';

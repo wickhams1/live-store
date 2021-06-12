@@ -13,46 +13,46 @@ export type Scalars = {
   Float: number;
 };
 
-export type Book = {
-  __typename?: 'Book';
+export type Item = {
+  __typename?: 'Item';
   id: Scalars['String'];
   author: Scalars['String'];
   title: Scalars['String'];
   borrower?: Maybe<User>;
 };
 
-export type BookInput = {
+export type ItemInput = {
   author: Scalars['String'];
   title: Scalars['String'];
 };
 
-export type BookResponse = {
-  __typename?: 'BookResponse';
-  book?: Maybe<Book>;
+export type ItemResponse = {
+  __typename?: 'ItemResponse';
+  item?: Maybe<Item>;
 };
 
-export type BooksListResponse = {
-  __typename?: 'BooksListResponse';
-  books?: Maybe<Array<Maybe<Book>>>;
+export type ItemsListResponse = {
+  __typename?: 'ItemsListResponse';
+  items?: Maybe<Array<Maybe<Item>>>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   _empty?: Maybe<Scalars['String']>;
-  borrowBook?: Maybe<BookResponse>;
-  createBook?: Maybe<BookResponse>;
+  borrowItem?: Maybe<ItemResponse>;
+  createItem?: Maybe<ItemResponse>;
   createUser?: Maybe<UserResponse>;
 };
 
 
-export type MutationBorrowBookArgs = {
-  bookId: Scalars['String'];
+export type MutationBorrowItemArgs = {
+  itemId: Scalars['String'];
   userId: Scalars['String'];
 };
 
 
-export type MutationCreateBookArgs = {
-  book: BookInput;
+export type MutationCreateItemArgs = {
+  item: ItemInput;
 };
 
 
@@ -63,14 +63,14 @@ export type MutationCreateUserArgs = {
 export type Query = {
   __typename?: 'Query';
   _empty?: Maybe<Scalars['String']>;
-  findBook?: Maybe<BookResponse>;
+  findItem?: Maybe<ItemResponse>;
   findUser?: Maybe<UserResponse>;
-  getBooks?: Maybe<BooksListResponse>;
+  getItems?: Maybe<ItemsListResponse>;
   greeting?: Maybe<Scalars['String']>;
 };
 
 
-export type QueryFindBookArgs = {
+export type QueryFindItemArgs = {
   id: Scalars['String'];
 };
 
@@ -179,11 +179,11 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Book: ResolverTypeWrapper<Book>;
+  Item: ResolverTypeWrapper<Item>;
   String: ResolverTypeWrapper<Scalars['String']>;
-  BookInput: BookInput;
-  BookResponse: ResolverTypeWrapper<BookResponse>;
-  BooksListResponse: ResolverTypeWrapper<BooksListResponse>;
+  ItemInput: ItemInput;
+  ItemResponse: ResolverTypeWrapper<ItemResponse>;
+  ItemsListResponse: ResolverTypeWrapper<ItemsListResponse>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User>;
@@ -194,11 +194,11 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Book: Book;
+  Item: Item;
   String: Scalars['String'];
-  BookInput: BookInput;
-  BookResponse: BookResponse;
-  BooksListResponse: BooksListResponse;
+  ItemInput: ItemInput;
+  ItemResponse: ItemResponse;
+  ItemsListResponse: ItemsListResponse;
   Mutation: {};
   Query: {};
   User: User;
@@ -207,7 +207,7 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
 };
 
-export type BookResolvers<ContextType = any, ParentType extends ResolversParentTypes['Book'] = ResolversParentTypes['Book']> = {
+export type ItemResolvers<ContextType = any, ParentType extends ResolversParentTypes['Item'] = ResolversParentTypes['Item']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   author?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -215,28 +215,28 @@ export type BookResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type BookResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['BookResponse'] = ResolversParentTypes['BookResponse']> = {
-  book?: Resolver<Maybe<ResolversTypes['Book']>, ParentType, ContextType>;
+export type ItemResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['ItemResponse'] = ResolversParentTypes['ItemResponse']> = {
+  item?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type BooksListResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['BooksListResponse'] = ResolversParentTypes['BooksListResponse']> = {
-  books?: Resolver<Maybe<Array<Maybe<ResolversTypes['Book']>>>, ParentType, ContextType>;
+export type ItemsListResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['ItemsListResponse'] = ResolversParentTypes['ItemsListResponse']> = {
+  items?: Resolver<Maybe<Array<Maybe<ResolversTypes['Item']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  borrowBook?: Resolver<Maybe<ResolversTypes['BookResponse']>, ParentType, ContextType, RequireFields<MutationBorrowBookArgs, 'bookId' | 'userId'>>;
-  createBook?: Resolver<Maybe<ResolversTypes['BookResponse']>, ParentType, ContextType, RequireFields<MutationCreateBookArgs, 'book'>>;
+  borrowItem?: Resolver<Maybe<ResolversTypes['ItemResponse']>, ParentType, ContextType, RequireFields<MutationBorrowItemArgs, 'itemId' | 'userId'>>;
+  createItem?: Resolver<Maybe<ResolversTypes['ItemResponse']>, ParentType, ContextType, RequireFields<MutationCreateItemArgs, 'item'>>;
   createUser?: Resolver<Maybe<ResolversTypes['UserResponse']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'user'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  findBook?: Resolver<Maybe<ResolversTypes['BookResponse']>, ParentType, ContextType, RequireFields<QueryFindBookArgs, 'id'>>;
+  findItem?: Resolver<Maybe<ResolversTypes['ItemResponse']>, ParentType, ContextType, RequireFields<QueryFindItemArgs, 'id'>>;
   findUser?: Resolver<Maybe<ResolversTypes['UserResponse']>, ParentType, ContextType, RequireFields<QueryFindUserArgs, 'id'>>;
-  getBooks?: Resolver<Maybe<ResolversTypes['BooksListResponse']>, ParentType, ContextType>;
+  getItems?: Resolver<Maybe<ResolversTypes['ItemsListResponse']>, ParentType, ContextType>;
   greeting?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryGreetingArgs, 'user'>>;
 };
 
@@ -253,9 +253,9 @@ export type UserResponseResolvers<ContextType = any, ParentType extends Resolver
 };
 
 export type Resolvers<ContextType = any> = {
-  Book?: BookResolvers<ContextType>;
-  BookResponse?: BookResponseResolvers<ContextType>;
-  BooksListResponse?: BooksListResponseResolvers<ContextType>;
+  Item?: ItemResolvers<ContextType>;
+  ItemResponse?: ItemResponseResolvers<ContextType>;
+  ItemsListResponse?: ItemsListResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;

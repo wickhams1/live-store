@@ -9,4 +9,4 @@ createConnection({
 });
 
 export { default as usersRepository } from './usersRepository';
-export { default as booksRepository } from './booksRepository';
+export { default as itemsRepository } from './itemsRepository';

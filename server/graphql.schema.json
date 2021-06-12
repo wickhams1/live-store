@@ -10,7 +10,7 @@
     "types": [
       {
         "kind": "OBJECT",
-        "name": "Book",
+        "name": "Item",
         "description": null,
         "fields": [
           {
@@ -91,7 +91,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "BookInput",
+        "name": "ItemInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -134,16 +134,16 @@
       },
       {
         "kind": "OBJECT",
-        "name": "BookResponse",
+        "name": "ItemResponse",
         "description": null,
         "fields": [
           {
-            "name": "book",
+            "name": "item",
             "description": null,
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "Book",
+              "name": "Item",
               "ofType": null
             },
             "isDeprecated": false,
@@ -157,11 +157,11 @@
       },
       {
         "kind": "OBJECT",
-        "name": "BooksListResponse",
+        "name": "ItemsListResponse",
         "description": null,
         "fields": [
           {
-            "name": "books",
+            "name": "items",
             "description": null,
             "args": [],
             "type": {
@@ -169,7 +169,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "Book",
+                "name": "Item",
                 "ofType": null
               }
             },
@@ -200,11 +200,11 @@
             "deprecationReason": null
           },
           {
-            "name": "borrowBook",
+            "name": "borrowItem",
             "description": null,
             "args": [
               {
-                "name": "bookId",
+                "name": "itemId",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
@@ -238,25 +238,25 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "BookResponse",
+              "name": "ItemResponse",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "createBook",
+            "name": "createItem",
             "description": null,
             "args": [
               {
-                "name": "book",
+                "name": "item",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "BookInput",
+                    "name": "ItemInput",
                     "ofType": null
                   }
                 },
@@ -267,7 +267,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "BookResponse",
+              "name": "ItemResponse",
               "ofType": null
             },
             "isDeprecated": false,
@@ -326,7 +326,7 @@
             "deprecationReason": null
           },
           {
-            "name": "findBook",
+            "name": "findItem",
             "description": null,
             "args": [
               {
@@ -348,7 +348,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "BookResponse",
+              "name": "ItemResponse",
               "ofType": null
             },
             "isDeprecated": false,
@@ -384,12 +384,12 @@
             "deprecationReason": null
           },
           {
-            "name": "getBooks",
+            "name": "getItems",
             "description": null,
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "BooksListResponse",
+              "name": "ItemsListResponse",
               "ofType": null
             },
             "isDeprecated": false,

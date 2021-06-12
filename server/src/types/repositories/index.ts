@@ -1,2 +1,2 @@
 export * from './UsersRepository';
-export * from './BooksRepository';
+export * from './ItemsRepository';

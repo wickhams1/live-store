@@ -1,6 +1,6 @@
 import { User } from '.';
 
-export interface Book {
+export interface Item {
   id: string;
   title: string;
   author: string;
