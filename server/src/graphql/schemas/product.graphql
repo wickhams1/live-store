@@ -1,0 +1,25 @@
+input ProductInput {
+  name: String!
+}
+
+extend type Query {
+  findProduct(id: String!): ProductResponse
+  getProducts: ProductsListResponse
+}
+
+extend type Mutation {
+  createProduct(product: ProductInput!): ProductResponse
+}
+
+type Product {
+  id: String!
+  name: String!
+}
+
+type ProductResponse {
+  product: Product
+}
+
+type ProductsListResponse {
+  products: [Product]
+}

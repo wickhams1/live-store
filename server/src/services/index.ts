@@ -1,2 +1,3 @@
-export * from './UsersService';
-export * from './ItemsService';
+export * from './usersService';
+export * from './itemsService';
+export * from './productsService';

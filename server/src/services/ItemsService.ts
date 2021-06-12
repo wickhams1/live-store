@@ -30,8 +30,6 @@ export const getItems =
     return itemsRepo.getItems();
   };
 
-export type SetBorrower = (itemId: string, userId: string) => Promise<Item | undefined>;
-
 export type ItemsService = {
   createItem: CreateItem;
   findItem: FindItem;

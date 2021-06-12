@@ -1,9 +1,16 @@
-import { UserResolver, UserResolverDependencies, ItemResolver, ItemResolverDependencies } from '.';
+import {
+  userResolver,
+  UserResolverDependencies,
+  itemResolver,
+  ItemResolverDependencies,
+  productResolver,
+  ProductResolverDependencies,
+} from '.';
 import { IResolvers } from 'graphql-tools';
 import { merge } from 'lodash';
 
-export interface Dependencies extends UserResolverDependencies, ItemResolverDependencies {}
+export interface Dependencies extends UserResolverDependencies, ItemResolverDependencies, ProductResolverDependencies {}
 
 const resolverMap = (dependencies: Dependencies): IResolvers =>
-  merge(UserResolver(dependencies), ItemResolver(dependencies));
+  merge(userResolver(dependencies), itemResolver(dependencies), productResolver(dependencies));
 export default resolverMap;
