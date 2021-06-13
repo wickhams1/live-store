@@ -11,3 +11,4 @@ createConnection({
 export { default as usersRepository } from './usersRepository';
 export { default as itemsRepository } from './itemsRepository';
 export { default as productsRepository } from './productsRepository';
+export { default as ordersRepository } from './ordersRepository';

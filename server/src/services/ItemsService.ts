@@ -39,7 +39,7 @@ export const findItem =
 export type GetItems = (productId?: string) => Promise<Item[]>;
 
 export const getItems =
-  ({ itemsRepo, productsRepo }: Dependencies): GetItems =>
+  ({ itemsRepo }: Dependencies): GetItems =>
   (productId) => {
     return itemsRepo.getItems(productId);
   };

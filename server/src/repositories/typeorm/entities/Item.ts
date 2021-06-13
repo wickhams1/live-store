@@ -1,5 +1,5 @@
 import { Entity, PrimaryColumn, ManyToOne } from 'typeorm';
-import { Product } from '.';
+import { Product, Order } from '.';
 
 @Entity()
 export class Item {
@@ -8,4 +8,7 @@ export class Item {
 
   @ManyToOne(() => Product, { eager: true })
   product: Product;
+
+  @ManyToOne(() => Order)
+  order: Order;
 }

@@ -37,6 +37,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   _empty?: Maybe<Scalars['String']>;
   createItem?: Maybe<ItemResponse>;
+  createOrder?: Maybe<OrderResponse>;
   createProduct?: Maybe<ProductResponse>;
   createUser?: Maybe<UserResponse>;
 };
@@ -54,6 +55,22 @@ export type MutationCreateProductArgs = {
 
 export type MutationCreateUserArgs = {
   user: UserInput;
+};
+
+export type Order = {
+  __typename?: 'Order';
+  id: Scalars['String'];
+  items: Array<Maybe<Item>>;
+};
+
+export type OrderResponse = {
+  __typename?: 'OrderResponse';
+  order?: Maybe<Order>;
+};
+
+export type OrdersListResponse = {
+  __typename?: 'OrdersListResponse';
+  orders?: Maybe<Array<Maybe<Order>>>;
 };
 
 export type Product = {
@@ -80,15 +97,22 @@ export type Query = {
   __typename?: 'Query';
   _empty?: Maybe<Scalars['String']>;
   findItem?: Maybe<ItemResponse>;
+  findOrder?: Maybe<OrderResponse>;
   findProduct?: Maybe<ProductResponse>;
   findUser?: Maybe<UserResponse>;
   getItems?: Maybe<ItemsListResponse>;
+  getOrders?: Maybe<OrdersListResponse>;
   getProducts?: Maybe<ProductsListResponse>;
   greeting?: Maybe<Scalars['String']>;
 };
 
 
 export type QueryFindItemArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryFindOrderArgs = {
   id: Scalars['String'];
 };
 
@@ -213,6 +237,9 @@ export type ResolversTypes = {
   ItemResponse: ResolverTypeWrapper<ItemResponse>;
   ItemsListResponse: ResolverTypeWrapper<ItemsListResponse>;
   Mutation: ResolverTypeWrapper<{}>;
+  Order: ResolverTypeWrapper<Order>;
+  OrderResponse: ResolverTypeWrapper<OrderResponse>;
+  OrdersListResponse: ResolverTypeWrapper<OrdersListResponse>;
   Product: ResolverTypeWrapper<Product>;
   ProductInput: ProductInput;
   ProductResponse: ResolverTypeWrapper<ProductResponse>;
@@ -232,6 +259,9 @@ export type ResolversParentTypes = {
   ItemResponse: ItemResponse;
   ItemsListResponse: ItemsListResponse;
   Mutation: {};
+  Order: Order;
+  OrderResponse: OrderResponse;
+  OrdersListResponse: OrdersListResponse;
   Product: Product;
   ProductInput: ProductInput;
   ProductResponse: ProductResponse;
@@ -262,8 +292,25 @@ export type ItemsListResponseResolvers<ContextType = any, ParentType extends Res
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   createItem?: Resolver<Maybe<ResolversTypes['ItemResponse']>, ParentType, ContextType, RequireFields<MutationCreateItemArgs, 'item'>>;
+  createOrder?: Resolver<Maybe<ResolversTypes['OrderResponse']>, ParentType, ContextType>;
   createProduct?: Resolver<Maybe<ResolversTypes['ProductResponse']>, ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'product'>>;
   createUser?: Resolver<Maybe<ResolversTypes['UserResponse']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'user'>>;
+};
+
+export type OrderResolvers<ContextType = any, ParentType extends ResolversParentTypes['Order'] = ResolversParentTypes['Order']> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  items?: Resolver<Array<Maybe<ResolversTypes['Item']>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type OrderResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderResponse'] = ResolversParentTypes['OrderResponse']> = {
+  order?: Resolver<Maybe<ResolversTypes['Order']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type OrdersListResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrdersListResponse'] = ResolversParentTypes['OrdersListResponse']> = {
+  orders?: Resolver<Maybe<Array<Maybe<ResolversTypes['Order']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
@@ -285,9 +332,11 @@ export type ProductsListResponseResolvers<ContextType = any, ParentType extends 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   findItem?: Resolver<Maybe<ResolversTypes['ItemResponse']>, ParentType, ContextType, RequireFields<QueryFindItemArgs, 'id'>>;
+  findOrder?: Resolver<Maybe<ResolversTypes['OrderResponse']>, ParentType, ContextType, RequireFields<QueryFindOrderArgs, 'id'>>;
   findProduct?: Resolver<Maybe<ResolversTypes['ProductResponse']>, ParentType, ContextType, RequireFields<QueryFindProductArgs, 'id'>>;
   findUser?: Resolver<Maybe<ResolversTypes['UserResponse']>, ParentType, ContextType, RequireFields<QueryFindUserArgs, 'id'>>;
   getItems?: Resolver<Maybe<ResolversTypes['ItemsListResponse']>, ParentType, ContextType, RequireFields<QueryGetItemsArgs, never>>;
+  getOrders?: Resolver<Maybe<ResolversTypes['OrdersListResponse']>, ParentType, ContextType>;
   getProducts?: Resolver<Maybe<ResolversTypes['ProductsListResponse']>, ParentType, ContextType>;
   greeting?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryGreetingArgs, 'user'>>;
 };
@@ -309,6 +358,9 @@ export type Resolvers<ContextType = any> = {
   ItemResponse?: ItemResponseResolvers<ContextType>;
   ItemsListResponse?: ItemsListResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  Order?: OrderResolvers<ContextType>;
+  OrderResponse?: OrderResponseResolvers<ContextType>;
+  OrdersListResponse?: OrdersListResponseResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
   ProductResponse?: ProductResponseResolvers<ContextType>;
   ProductsListResponse?: ProductsListResponseResolvers<ContextType>;

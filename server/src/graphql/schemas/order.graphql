@@ -1,0 +1,21 @@
+extend type Query {
+  findOrder(id: String!): OrderResponse
+  getOrders: OrdersListResponse
+}
+
+extend type Mutation {
+  createOrder: OrderResponse
+}
+
+type Order {
+  id: String!
+  items: [Item]!
+}
+
+type OrderResponse {
+  order: Order
+}
+
+type OrdersListResponse {
+  orders: [Order]
+}

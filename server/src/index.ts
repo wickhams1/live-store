@@ -1,8 +1,8 @@
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { schema } from './graphql';
-import { usersService, itemsService, productsService } from './services';
-import { usersRepository, itemsRepository, productsRepository } from './repositories/typeorm';
+import { usersService, itemsService, productsService, ordersService } from './services';
+import { usersRepository, itemsRepository, productsRepository, ordersRepository } from './repositories/typeorm';
 
 const app = express();
 const port = 3000;
@@ -12,6 +12,7 @@ const server = new ApolloServer({
     usersService: usersService({ usersRepo: usersRepository }),
     itemsService: itemsService({ itemsRepo: itemsRepository, productsRepo: productsRepository }),
     productsService: productsService({ productsRepo: productsRepository }),
+    ordersService: ordersService({ ordersRepo: ordersRepository }),
   }),
 });
 

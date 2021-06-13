@@ -20,7 +20,7 @@ const ItemResolver = ({ itemsService: { createItem, findItem, getItems } }: Depe
       return item ? { item: item } : {};
     },
     async getItems(_: void, { productId }: QueryGetItemsArgs): Promise<ItemsListResponse> {
-      const items = await getItems(productId || undefined);
+      const items = await getItems(productId ? (productId as string) : undefined);
       return { items };
     },
   },
