@@ -41,7 +41,7 @@ export type GetItems = (productId?: string) => Promise<Item[]>;
 export const getItems =
   ({ itemsRepo }: Dependencies): GetItems =>
   (productId) => {
-    return productId ? itemsRepo.getItemsForProductId(productId) : itemsRepo.getItems();
+    return productId ? itemsRepo.getAvailableItemsForProductId(productId) : itemsRepo.getItems();
   };
 
 export type ItemsService = {

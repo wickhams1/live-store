@@ -1,36 +1,39 @@
-import { Order } from 'src/types/entities';
+import { Item, Order } from 'src/types/entities';
 import { ItemsRepository, OrdersRepository } from 'src/types/repositories';
 
 interface Dependencies {
   ordersRepo: OrdersRepository;
   itemsRepo: ItemsRepository;
 }
-class NoItemsError extends Error {
+class NoProductsError extends Error {
   constructor() {
-    super('Orders require min 1 item');
+    super('Orders require min 1 product');
   }
 }
 
-class ItemsNotFoundError extends Error {
+class ProductsNotFoundError extends Error {
   constructor(itemIds: string[]) {
-    super('Some items in the request were not found: ' + itemIds);
+    super('Some products in the request were not found: ' + itemIds);
   }
 }
 
-export type CreateOrder = ({ itemIds }: { itemIds: string[] }) => Promise<Order>;
+export type CreateOrder = ({ productIds }: { productIds: string[] }) => Promise<Order>;
 
 export const createOrder =
   ({ ordersRepo, itemsRepo }: Dependencies): CreateOrder =>
-  async ({ itemIds }) => {
-    if (!itemIds.length) throw new NoItemsError();
+  async ({ productIds }) => {
+    if (!productIds.length) throw new NoProductsError();
 
-    const items = await itemsRepo.getSpecificItems(itemIds);
+    const itemsResults = await Promise.all(productIds.map((id) => itemsRepo.getAvailableItemsForProductId(id, 1)));
 
-    if (items.length < itemIds.length) {
-      const foundItemIds = items.map((item) => item.id);
-      const notFoundItemIds = itemIds.filter((id) => !foundItemIds.includes(id));
+    // Merge all items into a single array
+    const items = itemsResults.reduce((acc: Item[], curr: Item[]) => acc.concat(curr), []);
 
-      throw new ItemsNotFoundError(notFoundItemIds);
+    if (items.length < productIds.length) {
+      const foundProductIds = items.map((item: Item) => item.product.id);
+      const notFoundProductIds = productIds.filter((id) => !foundProductIds.includes(id));
+
+      throw new ProductsNotFoundError(notFoundProductIds);
     }
 
     return ordersRepo.createOrder({ items });

@@ -20,8 +20,8 @@ const itemsRepository: ItemsRepository = {
   getItems: () => {
     return getRepository(ItemEntity).find();
   },
-  getItemsForProductId: (productId: string) => {
-    return getRepository(ItemEntity).find({ where: { product: { id: productId } } });
+  getAvailableItemsForProductId: (productId: string, max?: number) => {
+    return getRepository(ItemEntity).find({ where: { product: { id: productId }, order: null }, take: max });
   },
   getSpecificItems: async (itemIds: string[]) => {
     return getRepository(ItemEntity).find({ where: { id: In(itemIds) } });
