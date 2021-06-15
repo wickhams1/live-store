@@ -12,7 +12,7 @@ const server = new ApolloServer({
     usersService: usersService({ usersRepo: usersRepository }),
     itemsService: itemsService({ itemsRepo: itemsRepository, productsRepo: productsRepository }),
     productsService: productsService({ productsRepo: productsRepository }),
-    ordersService: ordersService({ ordersRepo: ordersRepository }),
+    ordersService: ordersService({ ordersRepo: ordersRepository, itemsRepo: itemsRepository }),
   }),
 });
 

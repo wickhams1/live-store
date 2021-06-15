@@ -48,6 +48,11 @@ export type MutationCreateItemArgs = {
 };
 
 
+export type MutationCreateOrderArgs = {
+  itemIds: Array<Scalars['String']>;
+};
+
+
 export type MutationCreateProductArgs = {
   product: ProductInput;
 };
@@ -292,7 +297,7 @@ export type ItemsListResponseResolvers<ContextType = any, ParentType extends Res
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   createItem?: Resolver<Maybe<ResolversTypes['ItemResponse']>, ParentType, ContextType, RequireFields<MutationCreateItemArgs, 'item'>>;
-  createOrder?: Resolver<Maybe<ResolversTypes['OrderResponse']>, ParentType, ContextType>;
+  createOrder?: Resolver<Maybe<ResolversTypes['OrderResponse']>, ParentType, ContextType, RequireFields<MutationCreateOrderArgs, 'itemIds'>>;
   createProduct?: Resolver<Maybe<ResolversTypes['ProductResponse']>, ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'product'>>;
   createUser?: Resolver<Maybe<ResolversTypes['UserResponse']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'user'>>;
 };

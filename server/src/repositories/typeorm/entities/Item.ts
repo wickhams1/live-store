@@ -10,5 +10,5 @@ export class Item {
   product: Product;
 
   @ManyToOne(() => Order)
-  order: Order;
+  order?: Order;
 }

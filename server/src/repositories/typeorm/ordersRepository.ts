@@ -5,10 +5,10 @@ import { v4 } from 'uuid';
 import { Order as OrderEntity } from './entities';
 
 const ordersRepository: OrdersRepository = {
-  createOrder: async (orderInput: Order) => {
+  createOrder: async ({ items }: Order) => {
     const order = new OrderEntity();
     order.id = v4();
-    order.items = [];
+    order.items = items;
 
     await getConnection().manager.save(order);
 

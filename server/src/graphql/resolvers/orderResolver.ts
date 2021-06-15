@@ -1,5 +1,5 @@
 import { IResolvers } from 'graphql-tools';
-import { QueryFindOrderArgs, OrderResponse, OrdersListResponse } from '../generated';
+import { QueryFindOrderArgs, OrderResponse, OrdersListResponse, MutationCreateOrderArgs } from '../generated';
 
 import { OrdersService } from 'src/services';
 
@@ -20,8 +20,8 @@ const OrderResolver = ({ ordersService: { createOrder, findOrder, getOrders } }:
   },
 
   Mutation: {
-    async createOrder(): Promise<OrderResponse> {
-      const order = await createOrder({ items: [] });
+    async createOrder(_: void, { itemIds }: MutationCreateOrderArgs): Promise<OrderResponse> {
+      const order = await createOrder({ itemIds });
       return { order };
     },
   },

@@ -1,6 +1,6 @@
 import { Item } from 'src/types/entities';
 import { ItemsRepository } from 'src/types/repositories';
-import { getConnection, getRepository } from 'typeorm';
+import { getConnection, getRepository, In } from 'typeorm';
 import { v4 } from 'uuid';
 import { Item as ItemEntity } from './entities';
 
@@ -17,10 +17,14 @@ const itemsRepository: ItemsRepository = {
   findItem: (id: string) => {
     return getConnection().manager.findOne(ItemEntity, id);
   },
-  getItems: async (productId?: string) => {
-    const filter = productId ? { where: { product: { id: productId } } } : undefined;
-
-    return getRepository(ItemEntity).find(filter);
+  getItems: () => {
+    return getRepository(ItemEntity).find();
+  },
+  getItemsForProductId: (productId: string) => {
+    return getRepository(ItemEntity).find({ where: { product: { id: productId } } });
+  },
+  getSpecificItems: async (itemIds: string[]) => {
+    return getRepository(ItemEntity).find({ where: { id: In(itemIds) } });
   },
   updateItem: (item: Item) => {
     return getConnection().manager.save(item);
