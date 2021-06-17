@@ -153,6 +153,7 @@ export type User = {
   lastName: Scalars['String'];
   id: Scalars['String'];
   orders: Array<Order>;
+  cart: Array<Item>;
 };
 
 export type UserInput = {
@@ -362,6 +363,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   orders?: Resolver<Array<ResolversTypes['Order']>, ParentType, ContextType>;
+  cart?: Resolver<Array<ResolversTypes['Item']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

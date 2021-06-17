@@ -5,12 +5,12 @@ interface Dependencies {
   usersRepo: UsersRepository;
 }
 
-export type CreateUser = (user: Omit<User, 'id' | 'orders'>) => Promise<User>;
+export type CreateUser = (user: Omit<User, 'id' | 'orders' | 'cart'>) => Promise<User>;
 
 export const createUser =
   ({ usersRepo }: Dependencies): CreateUser =>
   (user) => {
-    return usersRepo.createUser({ orders: [], ...user });
+    return usersRepo.createUser({ orders: [], cart: [], ...user });
   };
 
 export type FindUser = (id: string) => Promise<User | undefined>;

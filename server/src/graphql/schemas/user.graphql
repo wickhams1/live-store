@@ -17,6 +17,7 @@ type User {
   lastName: String!
   id: String!
   orders: [Order!]!
+  cart: [Item!]!
 }
 
 type UserResponse {

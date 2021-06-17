@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
-import { Order } from '.';
+import { Order, Item } from '.';
 
 @Entity()
 export class User {
@@ -14,4 +14,7 @@ export class User {
 
   @OneToMany(() => Order, ({ user }) => user, { eager: true })
   orders: Order[];
+
+  @OneToMany(() => Item, ({ user }) => user, { eager: true })
+  cart: Item[];
 }
