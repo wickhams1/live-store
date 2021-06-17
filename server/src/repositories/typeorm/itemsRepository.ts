@@ -21,7 +21,10 @@ const itemsRepository: ItemsRepository = {
     return getRepository(ItemEntity).find();
   },
   getAvailableItemsForProductId: (productId: string, max?: number) => {
-    return getRepository(ItemEntity).find({ where: { product: { id: productId }, order: null }, take: max });
+    return getRepository(ItemEntity).find({
+      where: { product: { id: productId }, order: null, user: null },
+      take: max,
+    });
   },
   getSpecificItems: async (itemIds: string[]) => {
     return getRepository(ItemEntity).find({ where: { id: In(itemIds) } });
