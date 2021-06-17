@@ -1,27 +1,10 @@
 import { Item, Order } from 'src/types/entities';
 import { ItemsRepository, OrdersRepository, UsersRepository } from 'src/types/repositories';
-
+import { errors } from '.';
 interface Dependencies {
   ordersRepo: OrdersRepository;
   itemsRepo: ItemsRepository;
   usersRepo: UsersRepository;
-}
-class NoProductsError extends Error {
-  constructor() {
-    super('Orders require min 1 product');
-  }
-}
-
-class ProductsNotFoundError extends Error {
-  constructor() {
-    super('Some products in the request were not found');
-  }
-}
-
-class UserNotFoundError extends Error {
-  constructor() {
-    super('User not found');
-  }
 }
 
 export type CreateOrder = ({
@@ -37,9 +20,9 @@ export const createOrder =
   async ({ userId, products }) => {
     const user = await usersRepo.findUser(userId);
 
-    if (!user) throw new UserNotFoundError();
+    if (!user) throw new errors.UserNotFoundError();
 
-    if (!products.length) throw new NoProductsError();
+    if (!products.length) throw new errors.NoProductsError();
 
     const itemsResults = await Promise.all(
       products.map(({ productId, quantity }) => itemsRepo.getAvailableItemsForProductId(productId, quantity))
@@ -51,7 +34,7 @@ export const createOrder =
 
     if (items.length < requestedNumItems) {
       // TODO: return the products not found in the error message
-      throw new ProductsNotFoundError();
+      throw new errors.ProductsNotFoundError();
     }
 
     return ordersRepo.createOrder({ items, userId });

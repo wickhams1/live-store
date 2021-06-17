@@ -2,6 +2,11 @@ input ProductInput {
   name: String!
 }
 
+input ProductRelationInput {
+  productId: String!
+  quantity: Int!
+}
+
 extend type Query {
   findProduct(id: String!): ProductResponse
   getProducts: ProductsListResponse

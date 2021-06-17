@@ -20,6 +20,9 @@ const usersRepository: UsersRepository = {
   findUser: (id: string) => {
     return getConnection().manager.findOne(UserEntity, id);
   },
+  updateUser: (user: User) => {
+    return getConnection().manager.save(user);
+  },
 };
 
 export default usersRepository;

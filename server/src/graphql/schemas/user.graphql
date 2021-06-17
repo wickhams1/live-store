@@ -10,6 +10,7 @@ extend type Query {
 
 extend type Mutation {
   createUser(user: UserInput!): UserResponse
+  addProductsToCart(userId: String!, products: [ProductRelationInput!]!): UserResponse
 }
 
 type User {
