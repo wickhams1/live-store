@@ -1,9 +1,10 @@
 import { Item, Order } from 'src/types/entities';
-import { ItemsRepository, OrdersRepository } from 'src/types/repositories';
+import { ItemsRepository, OrdersRepository, UsersRepository } from 'src/types/repositories';
 
 interface Dependencies {
   ordersRepo: OrdersRepository;
   itemsRepo: ItemsRepository;
+  usersRepo: UsersRepository;
 }
 class NoProductsError extends Error {
   constructor() {
@@ -17,11 +18,21 @@ class ProductsNotFoundError extends Error {
   }
 }
 
-export type CreateOrder = ({ productIds }: { productIds: string[] }) => Promise<Order>;
+class UserNotFoundError extends Error {
+  constructor() {
+    super('User not found');
+  }
+}
+
+export type CreateOrder = ({ userId, productIds }: { userId: string; productIds: string[] }) => Promise<Order>;
 
 export const createOrder =
-  ({ ordersRepo, itemsRepo }: Dependencies): CreateOrder =>
-  async ({ productIds }) => {
+  ({ ordersRepo, itemsRepo, usersRepo }: Dependencies): CreateOrder =>
+  async ({ userId, productIds }) => {
+    const user = await usersRepo.findUser(userId);
+
+    if (!user) throw new UserNotFoundError();
+
     if (!productIds.length) throw new NoProductsError();
 
     const itemsResults = await Promise.all(productIds.map((id) => itemsRepo.getAvailableItemsForProductId(id, 1)));
@@ -36,7 +47,7 @@ export const createOrder =
       throw new ProductsNotFoundError(notFoundProductIds);
     }
 
-    return ordersRepo.createOrder({ items });
+    return ordersRepo.createOrder({ items, userId });
   };
 
 export type FindOrder = (id: string) => Promise<Order | undefined>;

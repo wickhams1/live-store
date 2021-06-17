@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
+import { Order } from '.';
 
 @Entity()
 export class User {
@@ -10,4 +11,7 @@ export class User {
 
   @Column()
   lastName: string;
+
+  @OneToMany(() => Order, ({ user }) => user, { eager: true })
+  orders: Order[];
 }

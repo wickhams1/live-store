@@ -1,5 +1,5 @@
-import { Entity, PrimaryColumn, OneToMany } from 'typeorm';
-import { Item } from '.';
+import { Entity, PrimaryColumn, OneToMany, ManyToOne, Column } from 'typeorm';
+import { Item, User } from '.';
 
 @Entity()
 export class Order {
@@ -8,4 +8,10 @@ export class Order {
 
   @OneToMany(() => Item, (item) => item.order, { eager: true })
   items: Item[];
+
+  @ManyToOne(() => User)
+  user?: User;
+
+  @Column()
+  userId: string;
 }

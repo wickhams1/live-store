@@ -1,4 +1,4 @@
-import { Order } from '../entities';
+import { Order, User } from '../entities';
 
 type OrderInput = Omit<Order, 'id'>;
 

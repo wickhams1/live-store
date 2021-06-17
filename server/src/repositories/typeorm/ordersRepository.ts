@@ -5,10 +5,11 @@ import { v4 } from 'uuid';
 import { Order as OrderEntity } from './entities';
 
 const ordersRepository: OrdersRepository = {
-  createOrder: async ({ items }: Order) => {
+  createOrder: async ({ items, userId }: Order) => {
     const order = new OrderEntity();
     order.id = v4();
     order.items = items;
+    order.userId = userId;
 
     await getConnection().manager.save(order);
 

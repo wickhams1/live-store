@@ -49,6 +49,7 @@ export type MutationCreateItemArgs = {
 
 
 export type MutationCreateOrderArgs = {
+  userId: Scalars['String'];
   productIds: Array<Scalars['String']>;
 };
 
@@ -146,6 +147,7 @@ export type User = {
   firstName: Scalars['String'];
   lastName: Scalars['String'];
   id: Scalars['String'];
+  orders: Array<Order>;
 };
 
 export type UserInput = {
@@ -297,7 +299,7 @@ export type ItemsListResponseResolvers<ContextType = any, ParentType extends Res
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   createItem?: Resolver<Maybe<ResolversTypes['ItemResponse']>, ParentType, ContextType, RequireFields<MutationCreateItemArgs, 'item'>>;
-  createOrder?: Resolver<Maybe<ResolversTypes['OrderResponse']>, ParentType, ContextType, RequireFields<MutationCreateOrderArgs, 'productIds'>>;
+  createOrder?: Resolver<Maybe<ResolversTypes['OrderResponse']>, ParentType, ContextType, RequireFields<MutationCreateOrderArgs, 'userId' | 'productIds'>>;
   createProduct?: Resolver<Maybe<ResolversTypes['ProductResponse']>, ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'product'>>;
   createUser?: Resolver<Maybe<ResolversTypes['UserResponse']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'user'>>;
 };
@@ -350,6 +352,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  orders?: Resolver<Array<ResolversTypes['Order']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
