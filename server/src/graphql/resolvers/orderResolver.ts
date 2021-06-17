@@ -20,8 +20,8 @@ const OrderResolver = ({ ordersService: { createOrder, findOrder, getOrders } }:
   },
 
   Mutation: {
-    async createOrder(_: void, { userId, productIds }: MutationCreateOrderArgs): Promise<OrderResponse> {
-      const order = await createOrder({ userId, productIds });
+    async createOrder(_: void, { userId, products }: MutationCreateOrderArgs): Promise<OrderResponse> {
+      const order = await createOrder({ userId, products });
       return { order };
     },
   },

@@ -13,8 +13,8 @@ class NoProductsError extends Error {
 }
 
 class ProductsNotFoundError extends Error {
-  constructor(itemIds: string[]) {
-    super('Some products in the request were not found: ' + itemIds);
+  constructor() {
+    super('Some products in the request were not found');
   }
 }
 
@@ -24,27 +24,34 @@ class UserNotFoundError extends Error {
   }
 }
 
-export type CreateOrder = ({ userId, productIds }: { userId: string; productIds: string[] }) => Promise<Order>;
+export type CreateOrder = ({
+  userId,
+  products,
+}: {
+  userId: string;
+  products: { productId: string; quantity: number }[];
+}) => Promise<Order>;
 
 export const createOrder =
   ({ ordersRepo, itemsRepo, usersRepo }: Dependencies): CreateOrder =>
-  async ({ userId, productIds }) => {
+  async ({ userId, products }) => {
     const user = await usersRepo.findUser(userId);
 
     if (!user) throw new UserNotFoundError();
 
-    if (!productIds.length) throw new NoProductsError();
+    if (!products.length) throw new NoProductsError();
 
-    const itemsResults = await Promise.all(productIds.map((id) => itemsRepo.getAvailableItemsForProductId(id, 1)));
+    const itemsResults = await Promise.all(
+      products.map(({ productId, quantity }) => itemsRepo.getAvailableItemsForProductId(productId, quantity))
+    );
 
     // Merge all items into a single array
     const items = itemsResults.reduce((acc: Item[], curr: Item[]) => acc.concat(curr), []);
+    const requestedNumItems = products.reduce((acc: number, { quantity }) => acc + quantity, 0);
 
-    if (items.length < productIds.length) {
-      const foundProductIds = items.map((item: Item) => item.product.id);
-      const notFoundProductIds = productIds.filter((id) => !foundProductIds.includes(id));
-
-      throw new ProductsNotFoundError(notFoundProductIds);
+    if (items.length < requestedNumItems) {
+      // TODO: return the products not found in the error message
+      throw new ProductsNotFoundError();
     }
 
     return ordersRepo.createOrder({ items, userId });

@@ -50,7 +50,7 @@ export type MutationCreateItemArgs = {
 
 export type MutationCreateOrderArgs = {
   userId: Scalars['String'];
-  productIds: Array<Scalars['String']>;
+  products: Array<ProductOrderInput>;
 };
 
 
@@ -87,6 +87,11 @@ export type Product = {
 
 export type ProductInput = {
   name: Scalars['String'];
+};
+
+export type ProductOrderInput = {
+  productId: Scalars['String'];
+  quantity: Scalars['Int'];
 };
 
 export type ProductResponse = {
@@ -249,6 +254,8 @@ export type ResolversTypes = {
   OrdersListResponse: ResolverTypeWrapper<OrdersListResponse>;
   Product: ResolverTypeWrapper<Product>;
   ProductInput: ProductInput;
+  ProductOrderInput: ProductOrderInput;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   ProductResponse: ResolverTypeWrapper<ProductResponse>;
   ProductsListResponse: ResolverTypeWrapper<ProductsListResponse>;
   Query: ResolverTypeWrapper<{}>;
@@ -271,6 +278,8 @@ export type ResolversParentTypes = {
   OrdersListResponse: OrdersListResponse;
   Product: Product;
   ProductInput: ProductInput;
+  ProductOrderInput: ProductOrderInput;
+  Int: Scalars['Int'];
   ProductResponse: ProductResponse;
   ProductsListResponse: ProductsListResponse;
   Query: {};
@@ -299,7 +308,7 @@ export type ItemsListResponseResolvers<ContextType = any, ParentType extends Res
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   createItem?: Resolver<Maybe<ResolversTypes['ItemResponse']>, ParentType, ContextType, RequireFields<MutationCreateItemArgs, 'item'>>;
-  createOrder?: Resolver<Maybe<ResolversTypes['OrderResponse']>, ParentType, ContextType, RequireFields<MutationCreateOrderArgs, 'userId' | 'productIds'>>;
+  createOrder?: Resolver<Maybe<ResolversTypes['OrderResponse']>, ParentType, ContextType, RequireFields<MutationCreateOrderArgs, 'userId' | 'products'>>;
   createProduct?: Resolver<Maybe<ResolversTypes['ProductResponse']>, ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'product'>>;
   createUser?: Resolver<Maybe<ResolversTypes['UserResponse']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'user'>>;
 };

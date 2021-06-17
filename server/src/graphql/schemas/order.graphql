@@ -4,7 +4,12 @@ extend type Query {
 }
 
 extend type Mutation {
-  createOrder(userId: String!, productIds: [String!]!): OrderResponse
+  createOrder(userId: String!, products: [ProductOrderInput!]!): OrderResponse
+}
+
+input ProductOrderInput {
+  productId: String!
+  quantity: Int!
 }
 
 type Order {
