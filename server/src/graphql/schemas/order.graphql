@@ -5,6 +5,7 @@ extend type Query {
 
 extend type Mutation {
   createOrder(userId: String!, products: [ProductRelationInput!]!): OrderResponse
+  createOrderFromUserCart(userId: String!): OrderResponse
 }
 
 type Order {

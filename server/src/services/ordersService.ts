@@ -40,6 +40,28 @@ export const createOrder =
     return ordersRepo.createOrder({ items, userId });
   };
 
+export type CreateOrderFromUserCart = ({ userId }: { userId: string }) => Promise<Order>;
+
+export const createOrderFromUserCart =
+  ({ ordersRepo, usersRepo }: Dependencies): CreateOrderFromUserCart =>
+  async ({ userId }) => {
+    const user = await usersRepo.findUser(userId);
+
+    if (!user) throw new errors.UserNotFoundError();
+
+    const items = user.cart;
+
+    if (!items.length) throw new errors.NoProductsError();
+
+    const order = await ordersRepo.createOrder({ items, userId });
+
+    user.cart = [];
+
+    await usersRepo.updateUser(user);
+
+    return order;
+  };
+
 export type FindOrder = (id: string) => Promise<Order | undefined>;
 
 export const findOrder =
@@ -60,10 +82,12 @@ export type OrdersService = {
   createOrder: CreateOrder;
   findOrder: FindOrder;
   getOrders: GetOrders;
+  createOrderFromUserCart: CreateOrderFromUserCart;
 };
 
 export const ordersService = (dependencies: Dependencies): OrdersService => ({
   createOrder: createOrder(dependencies),
   findOrder: findOrder(dependencies),
   getOrders: getOrders(dependencies),
+  createOrderFromUserCart: createOrderFromUserCart(dependencies),
 });
