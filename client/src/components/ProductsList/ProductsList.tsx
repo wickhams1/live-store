@@ -1,23 +1,15 @@
+import { useQuery } from '@apollo/client';
+import { GET_PRODUCTS } from '../../graphql/queries';
+import { Query } from '../../graphql/generated';
 import { Product } from '../';
 import { ProductListWrapper } from './styles';
 
-const productsData = [
-  {
-    id: '1142r2r2',
-    name: 'First Product',
-  },
-  {
-    id: '4124142c',
-    name: 'Second Product',
-  },
-];
-
 const Products = () => {
+  const { data } = useQuery<Query>(GET_PRODUCTS);
+
   return (
     <ProductListWrapper>
-      {productsData.map((product) => (
-        <Product {...product} key={product.id} />
-      ))}
+      {data?.getProducts?.products?.map((product) => product && <Product {...product} key={product.id} />)}
     </ProductListWrapper>
   );
 };

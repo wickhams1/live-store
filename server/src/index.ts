@@ -1,11 +1,14 @@
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
+import cors from 'cors';
 import { schema } from './graphql';
 import { usersService, itemsService, productsService, ordersService } from './services';
 import { usersRepository, itemsRepository, productsRepository, ordersRepository } from './repositories/typeorm';
 
 const app = express();
-const port = 3000;
+const port = 4000;
+
+app.use(cors());
 
 const server = new ApolloServer({
   schema: schema({
