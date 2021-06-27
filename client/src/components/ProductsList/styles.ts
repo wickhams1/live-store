@@ -7,7 +7,7 @@ export const ProductListWrapper = styled.div`
   height: fit-content;
 `;
 
-export const SpinnerWrapper = styled.div`
+export const ProductsListSpinnerWrapper = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;

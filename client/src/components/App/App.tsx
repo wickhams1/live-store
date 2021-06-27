@@ -1,7 +1,7 @@
 import { ThemeProvider } from 'styled-components';
 import { ProductsList, UserPanel, Divider } from '../';
 import theme from '../../theme';
-import { AppWrapper } from './styles';
+import { AppWrapper, AppProductsListWrapper } from './styles';
 
 import './App.css';
 
@@ -10,7 +10,10 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
         <AppWrapper>
-          <ProductsList />
+          <AppProductsListWrapper>
+            <ProductsList />
+          </AppProductsListWrapper>
+
           <Divider />
           <UserPanel />
         </AppWrapper>

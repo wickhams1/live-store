@@ -7,3 +7,7 @@ export const AppWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
 `;
+
+export const AppProductsListWrapper = styled.div`
+  flex-grow: 1;
+`;
