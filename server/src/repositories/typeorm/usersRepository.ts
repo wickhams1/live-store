@@ -20,6 +20,13 @@ const usersRepository: UsersRepository = {
   findUser: (id: string) => {
     return getConnection().manager.findOne(UserEntity, id);
   },
+  findUserByEmailAddress: (emailAddress: string) => {
+    return getConnection().manager.findOne(UserEntity, {
+      where: {
+        emailAddress,
+      },
+    });
+  },
   updateUser: (user: User) => {
     return getConnection().manager.save(user);
   },

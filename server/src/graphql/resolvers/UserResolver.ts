@@ -1,5 +1,11 @@
 import { IResolvers } from 'graphql-tools';
-import { MutationCreateUserArgs, QueryFindUserArgs, UserResponse, MutationAddProductsToCartArgs } from '../generated';
+import {
+  MutationCreateUserArgs,
+  QueryFindUserArgs,
+  UserResponse,
+  MutationAddProductsToCartArgs,
+  QueryFindUserByEmailAddressArgs,
+} from '../generated';
 
 import { UsersService } from 'src/services';
 
@@ -7,10 +13,16 @@ export interface Dependencies {
   usersService: UsersService;
 }
 
-const UserResolver = ({ usersService: { createUser, findUser, addProductsToCart } }: Dependencies): IResolvers => ({
+const UserResolver = ({
+  usersService: { createUser, findUser, addProductsToCart, findUserByEmailAddress },
+}: Dependencies): IResolvers => ({
   Query: {
     async findUser(_: void, { id }: QueryFindUserArgs): Promise<UserResponse> {
       const user = await findUser(id);
+      return user ? { user } : {};
+    },
+    async findUserByEmailAddress(_: void, { emailAddress }: QueryFindUserByEmailAddressArgs): Promise<UserResponse> {
+      const user = await findUserByEmailAddress(emailAddress);
       return user ? { user } : {};
     },
   },

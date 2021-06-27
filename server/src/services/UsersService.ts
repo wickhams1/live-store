@@ -23,6 +23,14 @@ export const findUser =
     return usersRepo.findUser(id);
   };
 
+export type FindUserByEmailAddress = (emailAddress: string) => Promise<User | undefined>;
+
+export const findUserByEmailAddress =
+  ({ usersRepo }: Dependencies): FindUserByEmailAddress =>
+  (emailAddress) => {
+    return usersRepo.findUserByEmailAddress(emailAddress);
+  };
+
 export type AddProductsToCart = ({
   userId,
   products,
@@ -62,10 +70,12 @@ export type UsersService = {
   createUser: CreateUser;
   findUser: FindUser;
   addProductsToCart: AddProductsToCart;
+  findUserByEmailAddress: FindUserByEmailAddress;
 };
 
 export const usersService = (dependencies: Dependencies): UsersService => ({
   createUser: createUser(dependencies),
   findUser: findUser(dependencies),
   addProductsToCart: addProductsToCart(dependencies),
+  findUserByEmailAddress: findUserByEmailAddress(dependencies),
 });

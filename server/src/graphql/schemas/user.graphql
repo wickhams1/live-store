@@ -5,6 +5,7 @@ input UserInput {
 
 extend type Query {
   findUser(id: String!): UserResponse
+  findUserByEmailAddress(emailAddress: String!): UserResponse
 }
 
 extend type Mutation {
