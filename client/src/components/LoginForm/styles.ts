@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { Theme } from '../../theme';
 
-export const LoginFormWrapper = styled.div`
+export const LoginFormWrapper = styled.form`
   ${({ theme: { space } }: { theme: Theme }) => css`
     width: 100%;
     padding: ${space(4)} ${space(2)};

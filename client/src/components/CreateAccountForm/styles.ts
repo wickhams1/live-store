@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { Theme } from '../../theme';
 
-export const CreateAccountFormWrapper = styled.div`
+export const CreateAccountFormWrapper = styled.form`
   ${({ theme: { space } }: { theme: Theme }) => css`
     width: 100%;
     padding: ${space(4)} ${space(2)};
