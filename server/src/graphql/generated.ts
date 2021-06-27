@@ -127,7 +127,6 @@ export type Query = {
   getItems?: Maybe<ItemsListResponse>;
   getOrders?: Maybe<OrdersListResponse>;
   getProducts?: Maybe<ProductsListResponse>;
-  greeting?: Maybe<Scalars['String']>;
 };
 
 
@@ -155,23 +154,18 @@ export type QueryGetItemsArgs = {
   productId?: Maybe<Scalars['String']>;
 };
 
-
-export type QueryGreetingArgs = {
-  user: UserInput;
-};
-
 export type User = {
   __typename?: 'User';
-  firstName: Scalars['String'];
-  lastName: Scalars['String'];
+  name: Scalars['String'];
+  emailAddress: Scalars['String'];
   id: Scalars['String'];
   orders: Array<Order>;
   cart: Array<Item>;
 };
 
 export type UserInput = {
-  firstName: Scalars['String'];
-  lastName: Scalars['String'];
+  name: Scalars['String'];
+  emailAddress: Scalars['String'];
 };
 
 export type UserResponse = {
@@ -370,12 +364,11 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getItems?: Resolver<Maybe<ResolversTypes['ItemsListResponse']>, ParentType, ContextType, RequireFields<QueryGetItemsArgs, never>>;
   getOrders?: Resolver<Maybe<ResolversTypes['OrdersListResponse']>, ParentType, ContextType>;
   getProducts?: Resolver<Maybe<ResolversTypes['ProductsListResponse']>, ParentType, ContextType>;
-  greeting?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<QueryGreetingArgs, 'user'>>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  emailAddress?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   orders?: Resolver<Array<ResolversTypes['Order']>, ParentType, ContextType>;
   cart?: Resolver<Array<ResolversTypes['Item']>, ParentType, ContextType>;

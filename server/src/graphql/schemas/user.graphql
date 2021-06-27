@@ -1,10 +1,9 @@
 input UserInput {
-  firstName: String!
-  lastName: String!
+  name: String!
+  emailAddress: String!
 }
 
 extend type Query {
-  greeting(user: UserInput!): String
   findUser(id: String!): UserResponse
 }
 
@@ -14,8 +13,8 @@ extend type Mutation {
 }
 
 type User {
-  firstName: String!
-  lastName: String!
+  name: String!
+  emailAddress: String!
   id: String!
   orders: [Order!]!
   cart: [Item!]!

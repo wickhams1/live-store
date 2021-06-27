@@ -7,10 +7,10 @@ export class User {
   id: string;
 
   @Column()
-  firstName: string;
+  name: string;
 
-  @Column()
-  lastName: string;
+  @Column({ unique: true })
+  emailAddress: string;
 
   @OneToMany(() => Order, ({ user }) => user, { eager: true })
   orders: Order[];

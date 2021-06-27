@@ -2,8 +2,8 @@ import { Order, Item } from '.';
 
 export interface User {
   id: string;
-  firstName: string;
-  lastName: string;
+  name: string;
+  emailAddress: string;
   orders: Order[];
   cart: Item[];
 }

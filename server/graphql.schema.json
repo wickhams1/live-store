@@ -834,35 +834,6 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
-          },
-          {
-            "name": "greeting",
-            "description": null,
-            "args": [
-              {
-                "name": "user",
-                "description": null,
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "UserInput",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -876,7 +847,7 @@
         "description": null,
         "fields": [
           {
-            "name": "firstName",
+            "name": "name",
             "description": null,
             "args": [],
             "type": {
@@ -892,7 +863,7 @@
             "deprecationReason": null
           },
           {
-            "name": "lastName",
+            "name": "emailAddress",
             "description": null,
             "args": [],
             "type": {
@@ -984,7 +955,7 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "firstName",
+            "name": "name",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -1000,7 +971,7 @@
             "deprecationReason": null
           },
           {
-            "name": "lastName",
+            "name": "emailAddress",
             "description": null,
             "type": {
               "kind": "NON_NULL",
