@@ -4,3 +4,5 @@ export { default as Product } from './Product';
 export { default as Spinner } from './Spinner';
 export { default as UserPanel } from './UserPanel';
 export { default as Divider } from './Divider';
+export { default as CreateAccountForm } from './CreateAccountForm';
+export { default as LoginForm } from './LoginForm';
