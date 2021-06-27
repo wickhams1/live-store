@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { UserPanelWrapper, NavBar, NavButton } from './styles';
+import { UserPanelWrapper, NavBar, NavButton, PanelWrapper } from './styles';
 import { CreateAccountForm, LoginForm } from '../';
 
 enum ActivePanel {
@@ -23,7 +23,8 @@ const UserPanel = () => {
           Login
         </NavButton>
       </NavBar>
-      {activePanel === ActivePanel.CREATE_ACCOUNT ? <CreateAccountForm /> : <LoginForm />}
+
+      <PanelWrapper>{activePanel === ActivePanel.CREATE_ACCOUNT ? <CreateAccountForm /> : <LoginForm />}</PanelWrapper>
     </UserPanelWrapper>
   );
 };

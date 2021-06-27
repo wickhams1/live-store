@@ -11,6 +11,7 @@ export const NavBar = styled.div`
     width: 100%;
     height: ${space(9)};
     background-color: ${colours.lightGrey.shadow};
+    box-sizing: border-box;
 
     display: flex;
     flex-direction: row;
@@ -34,5 +35,13 @@ export const NavButton = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
+  `}
+`;
+
+export const PanelWrapper = styled.div`
+  ${({ theme: { space, colours } }: { theme: Theme }) => css`
+    width: 100%;
+    padding: ${space(2)};
+    box-sizing: border-box;
   `}
 `;
