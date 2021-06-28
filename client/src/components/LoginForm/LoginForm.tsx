@@ -1,16 +1,11 @@
-import { useEffect, useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { UserContext } from '../../contexts';
 import { LoginFormWrapper, LoginFormInputWrapper, LoginFormButtonWrapper } from './styles';
 import { Button, Input, Spinner } from '../';
 
 const LoginForm = () => {
   const [emailAddress, setEmailAddress] = useState('');
-  const [loginButtonDisabled, setLoginButtonDisabled] = useState(true);
   const { loading, loginUser } = useContext(UserContext);
-
-  useEffect(() => {
-    setLoginButtonDisabled(emailAddress.length < 1);
-  }, [emailAddress]);
 
   return (
     <LoginFormWrapper>
@@ -28,7 +23,7 @@ const LoginForm = () => {
             />
           </LoginFormInputWrapper>
           <LoginFormButtonWrapper>
-            <Button disabled={loginButtonDisabled} onClick={() => loginUser(emailAddress)}>
+            <Button disabled={!emailAddress.length} onClick={() => loginUser(emailAddress)}>
               Login
             </Button>
           </LoginFormButtonWrapper>

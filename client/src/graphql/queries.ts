@@ -37,3 +37,30 @@ export const FIND_USER_BY_EMAIL_ADDRESS = gql`
     }
   }
 `;
+
+export const CREATE_USER = gql`
+  mutation createUser($user: UserInput!) {
+    createUser(user: $user) {
+      user {
+        id
+        name
+        emailAddress
+        cart {
+          product {
+            id
+            name
+          }
+        }
+        orders {
+          id
+          items {
+            product {
+              id
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+`;

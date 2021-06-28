@@ -1,15 +1,16 @@
 import { createContext, PropsWithChildren, useEffect, useState } from 'react';
-import { useQuery } from '@apollo/client';
-import { FIND_USER_BY_EMAIL_ADDRESS } from '../graphql/queries';
-import { Query } from '../graphql/generated';
-import { User, MutationCreateUserArgs } from '../graphql/generated';
+import { useApolloClient, ApolloError } from '@apollo/client';
+import { FIND_USER_BY_EMAIL_ADDRESS, CREATE_USER } from '../graphql/queries';
+import { Query, Mutation } from '../graphql/generated';
+import { User, UserInput } from '../graphql/generated';
+import { GraphQLError } from 'graphql';
 
 interface ContextState {
   loading: boolean;
   error: any;
   user?: User | null;
   loggedIn: boolean;
-  createAccount: (args: MutationCreateUserArgs) => void;
+  createAccount: (args: UserInput) => void;
   loginUser: (emailAddress: string) => void;
   logoutUser: () => void;
   clearError: () => void;
@@ -29,25 +30,48 @@ const defaultValue: ContextState = {
 export const UserContext = createContext(defaultValue as ContextState);
 
 const Provider = ({ children }: PropsWithChildren<{}>) => {
-  const [emailAddress, setEmailAddress] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
-
-  const { loading, data, error } = useQuery<Query>(FIND_USER_BY_EMAIL_ADDRESS, {
-    variables: { emailAddress },
-    skip: !emailAddress,
-  });
-  const user = data?.findUserByEmailAddress?.user;
+  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [error, setError] = useState<ApolloError | readonly GraphQLError[]>();
+  const client = useApolloClient();
 
   const loginUser = (emailAddress: string) => {
-    setEmailAddress(emailAddress);
+    if (loggedIn) return;
+
+    client
+      .query<Query>({ query: FIND_USER_BY_EMAIL_ADDRESS, variables: { emailAddress } })
+      .then(({ data, error, errors }) => {
+        setLoading(false);
+        const user = data?.findUserByEmailAddress?.user;
+        setUser(user || null);
+        setError(error || errors);
+      });
+    setLoading(true);
   };
 
-  console.log({ loading, data, error, emailAddress: !!emailAddress });
+  const createAccount = ({ name, emailAddress }: UserInput) => {
+    if (loggedIn) return;
+
+    client
+      .mutate<Mutation>({ mutation: CREATE_USER, variables: { user: { name, emailAddress } } })
+      .then(({ data, errors }) => {
+        setLoading(false);
+        const user = data?.createUser?.user;
+        setUser(user || null);
+        setError(errors);
+      })
+      .catch((error) => {
+        setError(error);
+        setLoading(false);
+      });
+    setLoading(true);
+  };
 
   useEffect(() => setLoggedIn(!!user), [user]);
 
   return (
-    <UserContext.Provider value={{ ...defaultValue, user, loading, error, loggedIn, loginUser }}>
+    <UserContext.Provider value={{ ...defaultValue, user, loading, error, loggedIn, loginUser, createAccount }}>
       {children}
     </UserContext.Provider>
   );
