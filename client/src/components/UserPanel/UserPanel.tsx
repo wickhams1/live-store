@@ -1,22 +1,50 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../contexts';
 import { UserPanelWrapper, NavBar, NavButton, PanelWrapper } from './styles';
-import { CreateAccountForm, LoginForm } from '../';
+import { CreateAccountForm, LoginForm, Cart, Orders } from '../';
 
 enum ActivePanel {
   LOGIN = 'LOGIN',
   CREATE_ACCOUNT = 'CREATE_ACCOUNT',
+  CART = 'CART',
+  ORDERS = 'ORDERS',
 }
 
 const UserPanel = () => {
-  const [activePanel, setActivePanel] = useState<ActivePanel>(ActivePanel.CREATE_ACCOUNT);
+  const [activePanel, setActivePanel] = useState<ActivePanel>();
   const { loggedIn } = useContext(UserContext);
+
+  useEffect(() => {
+    setActivePanel(loggedIn ? ActivePanel.CART : ActivePanel.CREATE_ACCOUNT);
+  }, [loggedIn]);
+
+  const Panel = () => {
+    switch (activePanel) {
+      case ActivePanel.LOGIN:
+        return <LoginForm />;
+      case ActivePanel.CREATE_ACCOUNT:
+        return <CreateAccountForm />;
+      case ActivePanel.CART:
+        return <Cart />;
+      case ActivePanel.ORDERS:
+        return <Orders />;
+      default:
+        return <div />;
+    }
+  };
 
   return (
     <UserPanelWrapper>
       <NavBar>
         {loggedIn ? (
-          <div />
+          <>
+            <NavButton onClick={() => setActivePanel(ActivePanel.CART)} active={activePanel === ActivePanel.CART}>
+              Cart
+            </NavButton>
+            <NavButton onClick={() => setActivePanel(ActivePanel.ORDERS)} active={activePanel === ActivePanel.ORDERS}>
+              Orders
+            </NavButton>
+          </>
         ) : (
           <>
             <NavButton
@@ -33,7 +61,7 @@ const UserPanel = () => {
       </NavBar>
 
       <PanelWrapper>
-        {!loggedIn && (activePanel === ActivePanel.CREATE_ACCOUNT ? <CreateAccountForm /> : <LoginForm />)}
+        <Panel />
       </PanelWrapper>
     </UserPanelWrapper>
   );
