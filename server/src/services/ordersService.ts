@@ -56,6 +56,7 @@ export const createOrderFromUserCart =
     const order = await ordersRepo.createOrder({ items, userId });
 
     user.cart = [];
+    user.orders.push(order);
 
     await usersRepo.updateUser(user);
 

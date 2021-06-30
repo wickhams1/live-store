@@ -35,3 +35,12 @@ export const Divider = styled.div`
     background-color: ${colours.lightGrey.shadow};
   `}
 `;
+
+export const CartButtonWrapper = styled.div`
+  ${({ theme: { space } }: { theme: Theme }) => css`
+    width: 100%;
+    box-sizing: border-box;
+    height: ${space(8)};
+    margin: ${space(3)} 0;
+  `}
+`;

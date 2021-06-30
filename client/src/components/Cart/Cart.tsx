@@ -1,8 +1,17 @@
-import { useContext, useMemo } from 'react';
+import { useContext, useMemo, useState } from 'react';
+import { useApolloClient } from '@apollo/client';
+import { USER_CART_TO_ORDER } from '../../graphql/queries';
 import { UserContext } from '../../contexts';
-import { Product as ProductType } from '../../graphql/generated';
-import { CartWrapper, ProductQuantityWrapper, QuantityWrapper, Divider, ProductDividerWrapper } from './styles';
-import { Product } from '../';
+import { Product as ProductType, Mutation } from '../../graphql/generated';
+import {
+  CartWrapper,
+  ProductQuantityWrapper,
+  QuantityWrapper,
+  Divider,
+  ProductDividerWrapper,
+  CartButtonWrapper,
+} from './styles';
+import { Product, Button, Spinner } from '../';
 
 interface ProductWithQuantity extends ProductType {
   quantity: number;
@@ -10,6 +19,8 @@ interface ProductWithQuantity extends ProductType {
 
 const Cart = () => {
   const { user } = useContext(UserContext);
+  const client = useApolloClient();
+  const [loading, setLoading] = useState(false);
 
   const cart = user?.cart;
 
@@ -30,6 +41,18 @@ const Cart = () => {
 
   const numProducts = products.length;
 
+  const handleOrderSubmit = () => {
+    client
+      .mutate<Mutation>({
+        mutation: USER_CART_TO_ORDER,
+        variables: {
+          userId: user?.id,
+        },
+      })
+      .then(() => setLoading(false));
+    setLoading(true);
+  };
+
   return (
     <CartWrapper>
       {products?.map((product, index) => (
@@ -43,6 +66,9 @@ const Cart = () => {
           {index + 1 < numProducts && <Divider vertical={false} />}
         </ProductDividerWrapper>
       ))}
+      <CartButtonWrapper>
+        {loading ? <Spinner /> : <Button onClick={handleOrderSubmit}>Submit Order</Button>}
+      </CartButtonWrapper>
     </CartWrapper>
   );
 };

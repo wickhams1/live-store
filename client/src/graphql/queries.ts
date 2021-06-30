@@ -64,3 +64,18 @@ export const CREATE_USER = gql`
     }
   }
 `;
+
+export const USER_CART_TO_ORDER = gql`
+  mutation createOrderFromUserCart($userId: String!) {
+    createOrderFromUserCart(userId: $userId) {
+      order {
+        id
+        items {
+          product {
+            name
+          }
+        }
+      }
+    }
+  }
+`;
