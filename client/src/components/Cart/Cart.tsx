@@ -3,15 +3,8 @@ import { useApolloClient } from '@apollo/client';
 import { USER_CART_TO_ORDER } from '../../graphql/queries';
 import { UserContext } from '../../contexts';
 import { Product as ProductType, Mutation } from '../../graphql/generated';
-import {
-  CartWrapper,
-  ProductQuantityWrapper,
-  QuantityWrapper,
-  Divider,
-  ProductDividerWrapper,
-  CartButtonWrapper,
-} from './styles';
-import { Product, Button, Spinner } from '../';
+import { CartWrapper, CartButtonWrapper } from './styles';
+import { Button, Spinner, ProductQuantityList } from '../';
 
 interface ProductWithQuantity extends ProductType {
   quantity: number;
@@ -39,8 +32,6 @@ const Cart = () => {
     return products;
   }, [cart]);
 
-  const numProducts = products.length;
-
   const handleOrderSubmit = () => {
     client
       .mutate<Mutation>({
@@ -55,17 +46,8 @@ const Cart = () => {
 
   return (
     <CartWrapper>
-      {products?.map((product, index) => (
-        <ProductDividerWrapper key={product.id}>
-          <ProductQuantityWrapper>
-            <Product {...product} key={product.id} />
-            <QuantityWrapper>
-              <p>x {product.quantity}</p>
-            </QuantityWrapper>
-          </ProductQuantityWrapper>
-          {index + 1 < numProducts && <Divider vertical={false} />}
-        </ProductDividerWrapper>
-      ))}
+      <ProductQuantityList products={products} />
+
       <CartButtonWrapper>
         {loading ? <Spinner /> : <Button onClick={handleOrderSubmit}>Submit Order</Button>}
       </CartButtonWrapper>
