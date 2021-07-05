@@ -10,7 +10,7 @@ extend type Mutation {
 
 type Order {
   id: String!
-  items: [Item]!
+  items: [Item!]!
 }
 
 type OrderResponse {
@@ -18,5 +18,5 @@ type OrderResponse {
 }
 
 type OrdersListResponse {
-  orders: [Order]
+  orders: [Order!]
 }

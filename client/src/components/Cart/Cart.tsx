@@ -20,7 +20,7 @@ const Cart = () => {
     skip: !user,
   });
 
-  const cart = data?.getUserCart?.items;
+  const cart = data?.getUserCart?.items || [];
 
   const handleOrderSubmit = () => {
     client

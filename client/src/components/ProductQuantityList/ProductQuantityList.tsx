@@ -13,13 +13,11 @@ interface ProductWithQuantity extends ProductType {
   quantity: number;
 }
 
-const ProductQuantityList = ({ items }: { items: (Item | null)[] }) => {
+const ProductQuantityList = ({ items }: { items: Item[] }) => {
   const products = useMemo(() => {
     const products: ProductWithQuantity[] = [];
 
     items?.forEach((item) => {
-      if (!item) return;
-
       const existingProduct = products.find((product) => product.id === item.product.id);
       if (!existingProduct) {
         products.push({ ...item.product, quantity: 1 });

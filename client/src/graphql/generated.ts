@@ -30,7 +30,7 @@ export type ItemResponse = {
 
 export type ItemsListResponse = {
   __typename?: 'ItemsListResponse';
-  items?: Maybe<Array<Maybe<Item>>>;
+  items?: Maybe<Array<Item>>;
 };
 
 export type Mutation = {
@@ -79,7 +79,7 @@ export type MutationCreateUserArgs = {
 export type Order = {
   __typename?: 'Order';
   id: Scalars['String'];
-  items: Array<Maybe<Item>>;
+  items: Array<Item>;
 };
 
 export type OrderResponse = {
@@ -89,7 +89,7 @@ export type OrderResponse = {
 
 export type OrdersListResponse = {
   __typename?: 'OrdersListResponse';
-  orders?: Maybe<Array<Maybe<Order>>>;
+  orders?: Maybe<Array<Order>>;
 };
 
 export type Product = {
@@ -327,7 +327,7 @@ export type ItemResponseResolvers<ContextType = any, ParentType extends Resolver
 };
 
 export type ItemsListResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['ItemsListResponse'] = ResolversParentTypes['ItemsListResponse']> = {
-  items?: Resolver<Maybe<Array<Maybe<ResolversTypes['Item']>>>, ParentType, ContextType>;
+  items?: Resolver<Maybe<Array<ResolversTypes['Item']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -343,7 +343,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type OrderResolvers<ContextType = any, ParentType extends ResolversParentTypes['Order'] = ResolversParentTypes['Order']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  items?: Resolver<Array<Maybe<ResolversTypes['Item']>>, ParentType, ContextType>;
+  items?: Resolver<Array<ResolversTypes['Item']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -353,7 +353,7 @@ export type OrderResponseResolvers<ContextType = any, ParentType extends Resolve
 };
 
 export type OrdersListResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrdersListResponse'] = ResolversParentTypes['OrdersListResponse']> = {
-  orders?: Resolver<Maybe<Array<Maybe<ResolversTypes['Order']>>>, ParentType, ContextType>;
+  orders?: Resolver<Maybe<Array<ResolversTypes['Order']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

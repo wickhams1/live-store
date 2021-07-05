@@ -21,5 +21,5 @@ type ItemResponse {
 }
 
 type ItemsListResponse {
-  items: [Item]
+  items: [Item!]
 }

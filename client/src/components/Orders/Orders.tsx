@@ -19,22 +19,19 @@ const Orders = () => {
     skip: !user,
   });
 
-  const orders = data?.getUserOrders?.orders;
+  const orders = data?.getUserOrders?.orders || [];
 
   const numOrders = orders?.length;
 
   return (
     <OrdersWrapper>
-      {orders?.map(
-        (order, index) =>
-          order && (
-            <OrderDividerWrapper key={order.id}>
-              <p onClick={() => setOpenOrder(openOrder === order.id ? '' : order.id)}>{order.id}</p>
-              {openOrder === order.id && <ProductQuantityList items={order.items} />}
-              {numOrders && index + 1 < numOrders && <Divider vertical={false} />}
-            </OrderDividerWrapper>
-          )
-      )}
+      {orders?.map((order, index) => (
+        <OrderDividerWrapper key={order.id}>
+          <p onClick={() => setOpenOrder(openOrder === order.id ? '' : order.id)}>{order.id}</p>
+          {openOrder === order.id && <ProductQuantityList items={order.items} />}
+          {numOrders && index + 1 < numOrders && <Divider vertical={false} />}
+        </OrderDividerWrapper>
+      ))}
     </OrdersWrapper>
   );
 };
