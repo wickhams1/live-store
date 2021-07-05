@@ -36,6 +36,14 @@ const Provider = ({ children }: PropsWithChildren<{}>) => {
   const [error, setError] = useState<ApolloError | readonly GraphQLError[]>();
   const client = useApolloClient();
 
+  useEffect(() => {
+    const storedUser = JSON.parse(window.localStorage.getItem('user') || '{}');
+
+    if (Object.keys(storedUser).length) {
+      setUser(storedUser);
+    }
+  }, []);
+
   const loginUser = (emailAddress: string) => {
     if (loggedIn) return;
 
@@ -46,8 +54,15 @@ const Provider = ({ children }: PropsWithChildren<{}>) => {
         const user = data?.findUserByEmailAddress?.user;
         setUser(user || null);
         setError(error || errors);
+
+        window.localStorage.setItem('user', JSON.stringify(user || {}));
       });
     setLoading(true);
+  };
+
+  const logoutUser = () => {
+    window.localStorage.setItem('user', JSON.stringify({}));
+    setUser(null);
   };
 
   const createAccount = ({ name, emailAddress }: UserInput) => {
@@ -71,7 +86,9 @@ const Provider = ({ children }: PropsWithChildren<{}>) => {
   useEffect(() => setLoggedIn(!!user), [user]);
 
   return (
-    <UserContext.Provider value={{ ...defaultValue, user, loading, error, loggedIn, loginUser, createAccount }}>
+    <UserContext.Provider
+      value={{ ...defaultValue, user, loading, error, loggedIn, loginUser, logoutUser, createAccount }}
+    >
       {children}
     </UserContext.Provider>
   );

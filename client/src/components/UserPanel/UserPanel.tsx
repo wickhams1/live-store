@@ -12,7 +12,7 @@ enum ActivePanel {
 
 const UserPanel = () => {
   const [activePanel, setActivePanel] = useState<ActivePanel>();
-  const { loggedIn } = useContext(UserContext);
+  const { loggedIn, logoutUser } = useContext(UserContext);
 
   useEffect(() => {
     setActivePanel(loggedIn ? ActivePanel.CART : ActivePanel.CREATE_ACCOUNT);
@@ -43,6 +43,9 @@ const UserPanel = () => {
             </NavButton>
             <NavButton onClick={() => setActivePanel(ActivePanel.ORDERS)} active={activePanel === ActivePanel.ORDERS}>
               Orders
+            </NavButton>
+            <NavButton onClick={() => logoutUser()} active={false}>
+              Logout
             </NavButton>
           </>
         ) : (
