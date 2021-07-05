@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../contexts';
 import { UserPanelWrapper, NavBar, NavButton, PanelWrapper } from './styles';
-import { CreateAccountForm, LoginForm, Cart, Orders } from '../';
+import { CreateAccountForm, LoginForm, Cart, Orders, Spinner } from '../';
 
 enum ActivePanel {
   LOGIN = 'LOGIN',
@@ -12,11 +12,11 @@ enum ActivePanel {
 
 const UserPanel = () => {
   const [activePanel, setActivePanel] = useState<ActivePanel>();
-  const { loggedIn, logoutUser } = useContext(UserContext);
+  const { initialised, loggedIn, logoutUser } = useContext(UserContext);
 
   useEffect(() => {
-    setActivePanel(loggedIn ? ActivePanel.CART : ActivePanel.CREATE_ACCOUNT);
-  }, [loggedIn]);
+    if (initialised) setActivePanel(loggedIn ? ActivePanel.CART : ActivePanel.CREATE_ACCOUNT);
+  }, [loggedIn, initialised]);
 
   const Panel = () => {
     switch (activePanel) {
@@ -35,33 +35,37 @@ const UserPanel = () => {
 
   return (
     <UserPanelWrapper>
-      <NavBar>
-        {loggedIn ? (
-          <>
-            <NavButton onClick={() => setActivePanel(ActivePanel.CART)} active={activePanel === ActivePanel.CART}>
-              Cart
-            </NavButton>
-            <NavButton onClick={() => setActivePanel(ActivePanel.ORDERS)} active={activePanel === ActivePanel.ORDERS}>
-              Orders
-            </NavButton>
-            <NavButton onClick={() => logoutUser()} active={false}>
-              Logout
-            </NavButton>
-          </>
-        ) : (
-          <>
-            <NavButton
-              onClick={() => setActivePanel(ActivePanel.CREATE_ACCOUNT)}
-              active={activePanel === ActivePanel.CREATE_ACCOUNT}
-            >
-              Create Account
-            </NavButton>
-            <NavButton onClick={() => setActivePanel(ActivePanel.LOGIN)} active={activePanel === ActivePanel.LOGIN}>
-              Login
-            </NavButton>
-          </>
-        )}
-      </NavBar>
+      {initialised ? (
+        <NavBar>
+          {loggedIn ? (
+            <>
+              <NavButton onClick={() => setActivePanel(ActivePanel.CART)} active={activePanel === ActivePanel.CART}>
+                Cart
+              </NavButton>
+              <NavButton onClick={() => setActivePanel(ActivePanel.ORDERS)} active={activePanel === ActivePanel.ORDERS}>
+                Orders
+              </NavButton>
+              <NavButton onClick={() => logoutUser()} active={false}>
+                Logout
+              </NavButton>
+            </>
+          ) : (
+            <>
+              <NavButton
+                onClick={() => setActivePanel(ActivePanel.CREATE_ACCOUNT)}
+                active={activePanel === ActivePanel.CREATE_ACCOUNT}
+              >
+                Create Account
+              </NavButton>
+              <NavButton onClick={() => setActivePanel(ActivePanel.LOGIN)} active={activePanel === ActivePanel.LOGIN}>
+                Login
+              </NavButton>
+            </>
+          )}
+        </NavBar>
+      ) : (
+        <Spinner />
+      )}
 
       <PanelWrapper>
         <Panel />

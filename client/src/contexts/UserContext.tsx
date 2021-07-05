@@ -6,6 +6,7 @@ import { User, UserInput } from '../graphql/generated';
 import { GraphQLError } from 'graphql';
 
 interface ContextState {
+  initialised: boolean;
   loading: boolean;
   error: any;
   user?: User | null;
@@ -18,6 +19,7 @@ interface ContextState {
 
 const defaultValue: ContextState = {
   loading: false,
+  initialised: false,
   error: '',
   user: null,
   loggedIn: false,
@@ -31,7 +33,8 @@ export const UserContext = createContext(defaultValue as ContextState);
 
 const Provider = ({ children }: PropsWithChildren<{}>) => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [initialised, setInitialised] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<ApolloError | readonly GraphQLError[]>();
   const client = useApolloClient();
@@ -42,6 +45,8 @@ const Provider = ({ children }: PropsWithChildren<{}>) => {
     if (Object.keys(storedUser).length) {
       setUser(storedUser);
     }
+    setLoading(false);
+    setInitialised(true);
   }, []);
 
   const loginUser = (emailAddress: string) => {
@@ -87,7 +92,7 @@ const Provider = ({ children }: PropsWithChildren<{}>) => {
 
   return (
     <UserContext.Provider
-      value={{ ...defaultValue, user, loading, error, loggedIn, loginUser, logoutUser, createAccount }}
+      value={{ ...defaultValue, user, initialised, loading, error, loggedIn, loginUser, logoutUser, createAccount }}
     >
       {children}
     </UserContext.Provider>
