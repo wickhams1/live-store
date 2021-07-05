@@ -1,4 +1,5 @@
-import { Product as ProductType } from '../../graphql/generated';
+import { useMemo } from 'react';
+import { Item, Product as ProductType } from '../../graphql/generated';
 import {
   ProductQuantityListWrapper,
   ProductQuantityWrapper,
@@ -12,7 +13,24 @@ interface ProductWithQuantity extends ProductType {
   quantity: number;
 }
 
-const ProductQuantityList = ({ products }: { products: ProductWithQuantity[] }) => {
+const ProductQuantityList = ({ items }: { items: (Item | null)[] }) => {
+  const products = useMemo(() => {
+    const products: ProductWithQuantity[] = [];
+
+    items?.forEach((item) => {
+      if (!item) return;
+
+      const existingProduct = products.find((product) => product.id === item.product.id);
+      if (!existingProduct) {
+        products.push({ ...item.product, quantity: 1 });
+      } else {
+        existingProduct.quantity++;
+      }
+    });
+
+    return products;
+  }, [items]);
+
   const numProducts = products.length;
 
   return (

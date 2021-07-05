@@ -128,6 +128,8 @@ export type Query = {
   getItems?: Maybe<ItemsListResponse>;
   getOrders?: Maybe<OrdersListResponse>;
   getProducts?: Maybe<ProductsListResponse>;
+  getUserCart?: Maybe<ItemsListResponse>;
+  getUserOrders?: Maybe<OrdersListResponse>;
 };
 
 
@@ -158,6 +160,16 @@ export type QueryFindUserByEmailAddressArgs = {
 
 export type QueryGetItemsArgs = {
   productId?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryGetUserCartArgs = {
+  userId: Scalars['String'];
+};
+
+
+export type QueryGetUserOrdersArgs = {
+  userId: Scalars['String'];
 };
 
 export type User = {
@@ -371,6 +383,8 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getItems?: Resolver<Maybe<ResolversTypes['ItemsListResponse']>, ParentType, ContextType, RequireFields<QueryGetItemsArgs, never>>;
   getOrders?: Resolver<Maybe<ResolversTypes['OrdersListResponse']>, ParentType, ContextType>;
   getProducts?: Resolver<Maybe<ResolversTypes['ProductsListResponse']>, ParentType, ContextType>;
+  getUserCart?: Resolver<Maybe<ResolversTypes['ItemsListResponse']>, ParentType, ContextType, RequireFields<QueryGetUserCartArgs, 'userId'>>;
+  getUserOrders?: Resolver<Maybe<ResolversTypes['OrdersListResponse']>, ParentType, ContextType, RequireFields<QueryGetUserOrdersArgs, 'userId'>>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {

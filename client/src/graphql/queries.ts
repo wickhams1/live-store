@@ -18,21 +18,6 @@ export const FIND_USER_BY_EMAIL_ADDRESS = gql`
         id
         name
         emailAddress
-        cart {
-          product {
-            id
-            name
-          }
-        }
-        orders {
-          id
-          items {
-            product {
-              id
-              name
-            }
-          }
-        }
       }
     }
   }
@@ -45,21 +30,6 @@ export const CREATE_USER = gql`
         id
         name
         emailAddress
-        cart {
-          product {
-            id
-            name
-          }
-        }
-        orders {
-          id
-          items {
-            product {
-              id
-              name
-            }
-          }
-        }
       }
     }
   }
@@ -71,6 +41,35 @@ export const USER_CART_TO_ORDER = gql`
       order {
         id
         items {
+          product {
+            name
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_USER_CART = gql`
+  query getUserCart($userId: String!) {
+    getUserCart(userId: $userId) {
+      items {
+        id
+        product {
+          name
+        }
+      }
+    }
+  }
+`;
+
+export const GET_USER_ORDERS = gql`
+  query getUserOrders($userId: String!) {
+    getUserOrders(userId: $userId) {
+      orders {
+        id
+        items {
+          id
           product {
             name
           }

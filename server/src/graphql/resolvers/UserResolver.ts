@@ -5,6 +5,10 @@ import {
   UserResponse,
   MutationAddProductsToCartArgs,
   QueryFindUserByEmailAddressArgs,
+  QueryGetUserCartArgs,
+  QueryGetUserOrdersArgs,
+  ItemsListResponse,
+  OrdersListResponse,
 } from '../generated';
 
 import { UsersService } from 'src/services';
@@ -24,6 +28,12 @@ const UserResolver = ({
     async findUserByEmailAddress(_: void, { emailAddress }: QueryFindUserByEmailAddressArgs): Promise<UserResponse> {
       const user = await findUserByEmailAddress(emailAddress);
       return user ? { user } : {};
+    },
+    async getUserCart(_: void, { userId }: QueryGetUserCartArgs): Promise<ItemsListResponse> {
+      return { items: (await findUser(userId))?.cart };
+    },
+    async getUserOrders(_: void, { userId }: QueryGetUserOrdersArgs): Promise<OrdersListResponse> {
+      return { orders: (await findUser(userId))?.orders };
     },
   },
 

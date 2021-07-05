@@ -1,36 +1,26 @@
-import { useContext, useMemo, useState } from 'react';
-import { useApolloClient } from '@apollo/client';
-import { USER_CART_TO_ORDER } from '../../graphql/queries';
+import { useContext, useState } from 'react';
+import { useApolloClient, useQuery } from '@apollo/client';
+import { USER_CART_TO_ORDER, GET_USER_CART } from '../../graphql/queries';
 import { UserContext } from '../../contexts';
-import { Product as ProductType, Mutation } from '../../graphql/generated';
+import { Mutation, Query, QueryGetUserCartArgs } from '../../graphql/generated';
 import { CartWrapper, CartButtonWrapper } from './styles';
 import { Button, Spinner, ProductQuantityList } from '../';
 
-interface ProductWithQuantity extends ProductType {
-  quantity: number;
-}
-
 const Cart = () => {
-  const { user } = useContext(UserContext);
   const client = useApolloClient();
-  const [loading, setLoading] = useState(false);
+  const [mutationLoading, setMutationLoading] = useState(false);
 
-  const cart = user?.cart;
+  const { user } = useContext(UserContext);
+  const userId = user?.id || '';
 
-  const products = useMemo(() => {
-    const products: ProductWithQuantity[] = [];
+  const { data, loading: queryLoading } = useQuery<Query, QueryGetUserCartArgs>(GET_USER_CART, {
+    variables: {
+      userId,
+    },
+    skip: !user,
+  });
 
-    cart?.forEach((item) => {
-      const existingProduct = products.find((product) => product.id === item.product.id);
-      if (!existingProduct) {
-        products.push({ ...item.product, quantity: 1 });
-      } else {
-        existingProduct.quantity++;
-      }
-    });
-
-    return products;
-  }, [cart]);
+  const cart = data?.getUserCart?.items;
 
   const handleOrderSubmit = () => {
     client
@@ -40,16 +30,17 @@ const Cart = () => {
           userId: user?.id,
         },
       })
-      .then(() => setLoading(false));
-    setLoading(true);
+      .then(() => setMutationLoading(false));
+    setMutationLoading(true);
   };
 
   return (
     <CartWrapper>
-      <ProductQuantityList products={products} />
+      {queryLoading && <Spinner />}
+      {cart && <ProductQuantityList items={cart} />}
 
       <CartButtonWrapper>
-        {loading ? <Spinner /> : <Button onClick={handleOrderSubmit}>Submit Order</Button>}
+        {mutationLoading ? <Spinner /> : cart?.length && <Button onClick={handleOrderSubmit}>Submit Order</Button>}
       </CartButtonWrapper>
     </CartWrapper>
   );

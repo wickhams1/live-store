@@ -6,6 +6,8 @@ input UserInput {
 extend type Query {
   findUser(id: String!): UserResponse
   findUserByEmailAddress(emailAddress: String!): UserResponse
+  getUserCart(userId: String!): ItemsListResponse
+  getUserOrders(userId: String!): OrdersListResponse
 }
 
 extend type Mutation {
