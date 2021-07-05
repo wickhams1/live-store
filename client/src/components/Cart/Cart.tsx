@@ -37,7 +37,7 @@ const Cart = () => {
   return (
     <CartWrapper>
       {queryLoading && <Spinner />}
-      {cart && <ProductQuantityList items={cart} />}
+      {cart && <ProductQuantityList items={cart} key={0} />}
 
       <CartButtonWrapper>
         {mutationLoading ? <Spinner /> : cart?.length && <Button onClick={handleOrderSubmit}>Submit Order</Button>}

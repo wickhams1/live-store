@@ -34,9 +34,9 @@ const ProductQuantityList = ({ items }: { items: Item[] }) => {
   return (
     <ProductQuantityListWrapper>
       {products?.map((product, index) => (
-        <ProductDividerWrapper key={product.id}>
+        <ProductDividerWrapper key={index}>
           <ProductQuantityWrapper>
-            <Product {...product} key={product.id} />
+            <Product {...product} />
             <QuantityWrapper>
               <p>x {product.quantity}</p>
             </QuantityWrapper>
