@@ -1,13 +1,21 @@
-import { ProductWrapper } from './styles';
+import { Product as ProductType } from '../../graphql/generated';
+import { ProductWrapper, ProductButtonWrapper, Title, Quantity } from './styles';
+import { Button } from '../';
 
-interface Props {
-  name: string;
-}
+interface Props extends ProductType {}
 
-const Product = ({ name }: Props) => {
+const Product = ({ name, availableQuantity }: Props) => {
   return (
     <ProductWrapper>
-      <p>{name}</p>
+      <Title>{name}</Title>
+      {typeof availableQuantity === 'number' && (
+        <>
+          <Quantity>Quantity: {availableQuantity}</Quantity>
+          <ProductButtonWrapper>
+            <Button>Add to Cart</Button>
+          </ProductButtonWrapper>
+        </>
+      )}
     </ProductWrapper>
   );
 };
