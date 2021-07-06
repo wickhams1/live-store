@@ -58,6 +58,7 @@ export const GET_USER_CART = gql`
         id
         product {
           name
+          id
         }
       }
     }
@@ -70,6 +71,22 @@ export const GET_USER_ORDERS = gql`
       orders {
         id
         items {
+          id
+          product {
+            name
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const ADD_ITEM_TO_CART = gql`
+  mutation createOrderFromUserCart($userId: String!, $products: [ProductRelationInput!]!) {
+    addProductsToCart(userId: $userId, products: $products) {
+      user {
+        id
+        cart {
           id
           product {
             name

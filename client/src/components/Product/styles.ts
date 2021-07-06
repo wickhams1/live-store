@@ -14,13 +14,20 @@ export const ProductWrapper = styled.div`
     padding-bottom: ${space(3)};
 
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
 
     :hover {
       background-color: ${colours.lightGrey.hover};
     }
   `}
+`;
+
+export const ProductContentsWrapper = styled.div`
+  box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 `;
 
 export const ProductButtonWrapper = styled.div`
@@ -36,7 +43,7 @@ export const ProductButtonWrapper = styled.div`
 export const Title = styled.h4`
   ${({ theme: { size, space } }: { theme: Theme }) => css`
     font-size: ${size.medium};
-    margin-bottom: 0px;
+    margin-bottom: ${space(2)};
   `}
 `;
 
