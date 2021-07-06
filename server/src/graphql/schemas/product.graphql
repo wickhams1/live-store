@@ -19,6 +19,7 @@ extend type Mutation {
 type Product {
   id: String!
   name: String!
+  availableQuantity: Int!
 }
 
 type ProductResponse {

@@ -96,6 +96,7 @@ export type Product = {
   __typename?: 'Product';
   id: Scalars['String'];
   name: Scalars['String'];
+  availableQuantity: Scalars['Int'];
 };
 
 export type ProductInput = {
@@ -279,9 +280,9 @@ export type ResolversTypes = {
   OrderResponse: ResolverTypeWrapper<OrderResponse>;
   OrdersListResponse: ResolverTypeWrapper<OrdersListResponse>;
   Product: ResolverTypeWrapper<Product>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   ProductInput: ProductInput;
   ProductRelationInput: ProductRelationInput;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
   ProductResponse: ResolverTypeWrapper<ProductResponse>;
   ProductsListResponse: ResolverTypeWrapper<ProductsListResponse>;
   Query: ResolverTypeWrapper<{}>;
@@ -303,9 +304,9 @@ export type ResolversParentTypes = {
   OrderResponse: OrderResponse;
   OrdersListResponse: OrdersListResponse;
   Product: Product;
+  Int: Scalars['Int'];
   ProductInput: ProductInput;
   ProductRelationInput: ProductRelationInput;
-  Int: Scalars['Int'];
   ProductResponse: ProductResponse;
   ProductsListResponse: ProductsListResponse;
   Query: {};
@@ -360,6 +361,7 @@ export type OrdersListResponseResolvers<ContextType = any, ParentType extends Re
 export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  availableQuantity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
