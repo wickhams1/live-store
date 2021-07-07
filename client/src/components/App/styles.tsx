@@ -8,6 +8,6 @@ export const AppWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const AppProductsListWrapper = styled.div`
+export const AppProductsPanelWrapper = styled.div`
   flex-grow: 1;
 `;
