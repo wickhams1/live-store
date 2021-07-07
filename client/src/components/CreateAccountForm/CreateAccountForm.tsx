@@ -1,6 +1,11 @@
 import { useState, useContext } from 'react';
 import { UserContext } from '../../contexts';
-import { CreateAccountFormWrapper, CreateAccountFormInputWrapper, CreateAccountFormButtonWrapper } from './styles';
+import {
+  CreateAccountFormWrapper,
+  CreateAccountFormInputWrapper,
+  CreateAccountFormButtonWrapper,
+  CreateAccountFormSpinnerWrapper,
+} from './styles';
 import { Button, Input } from '../';
 import Spinner from '../Spinner';
 
@@ -12,7 +17,9 @@ const CreateAccountForm = () => {
   return (
     <CreateAccountFormWrapper>
       {loading ? (
-        <Spinner />
+        <CreateAccountFormSpinnerWrapper>
+          <Spinner />
+        </CreateAccountFormSpinnerWrapper>
       ) : (
         <>
           <CreateAccountFormInputWrapper>

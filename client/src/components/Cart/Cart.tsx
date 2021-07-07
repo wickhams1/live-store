@@ -3,7 +3,7 @@ import { useApolloClient, useQuery } from '@apollo/client';
 import { USER_CART_TO_ORDER, GET_USER_CART } from '../../graphql/queries';
 import { UserContext } from '../../contexts';
 import { Mutation, Query, QueryGetUserCartArgs } from '../../graphql/generated';
-import { CartWrapper, CartButtonWrapper } from './styles';
+import { CartWrapper, CartButtonWrapper, CartSpinnerWrapper } from './styles';
 import { Button, Spinner, ProductQuantityList } from '../';
 
 const Cart = () => {
@@ -36,11 +36,21 @@ const Cart = () => {
 
   return (
     <CartWrapper>
-      {queryLoading && <Spinner />}
+      {queryLoading && (
+        <CartSpinnerWrapper>
+          <Spinner />
+        </CartSpinnerWrapper>
+      )}
       {cart && <ProductQuantityList items={cart} key={0} />}
 
       <CartButtonWrapper>
-        {mutationLoading ? <Spinner /> : cart?.length && <Button onClick={handleOrderSubmit}>Submit Order</Button>}
+        {mutationLoading ? (
+          <CartSpinnerWrapper>
+            <Spinner />
+          </CartSpinnerWrapper>
+        ) : (
+          cart?.length !== 0 && <Button onClick={handleOrderSubmit}>Submit Order</Button>
+        )}
       </CartButtonWrapper>
     </CartWrapper>
   );

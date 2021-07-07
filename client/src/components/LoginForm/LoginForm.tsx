@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { UserContext } from '../../contexts';
-import { LoginFormWrapper, LoginFormInputWrapper, LoginFormButtonWrapper } from './styles';
+import { LoginFormWrapper, LoginFormInputWrapper, LoginFormButtonWrapper, LoginFormSpinnerWrapper } from './styles';
 import { Button, Input, Spinner } from '../';
 
 const LoginForm = () => {
@@ -10,7 +10,9 @@ const LoginForm = () => {
   return (
     <LoginFormWrapper>
       {loading ? (
-        <Spinner />
+        <LoginFormSpinnerWrapper>
+          <Spinner />
+        </LoginFormSpinnerWrapper>
       ) : (
         <>
           <LoginFormInputWrapper>

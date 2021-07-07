@@ -31,3 +31,10 @@ export const LoginFormButtonWrapper = styled.div`
     margin: ${space(3)} 0;
   `}
 `;
+
+export const LoginFormSpinnerWrapper = styled.div`
+  ${({ theme: { space } }: { theme: Theme }) => css`
+    width: ${space(4)};
+    height: ${space(4)};
+  `}
+`;

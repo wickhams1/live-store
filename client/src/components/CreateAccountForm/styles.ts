@@ -31,3 +31,10 @@ export const CreateAccountFormButtonWrapper = styled.div`
     margin: ${space(3)} 0;
   `}
 `;
+
+export const CreateAccountFormSpinnerWrapper = styled.div`
+  ${({ theme: { space } }: { theme: Theme }) => css`
+    width: ${space(4)};
+    height: ${space(4)};
+  `}
+`;
