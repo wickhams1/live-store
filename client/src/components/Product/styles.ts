@@ -12,6 +12,7 @@ export const ProductWrapper = styled.div`
     height: 150px;
     padding: ${space(1)} ${space(2)};
     padding-bottom: ${space(3)};
+    background-color: white;
 
     display: flex;
     flex-direction: column;
@@ -43,12 +44,12 @@ export const ProductButtonWrapper = styled.div`
 export const Title = styled.h4`
   ${({ theme: { size, space } }: { theme: Theme }) => css`
     font-size: ${size.medium};
-    margin-bottom: ${space(2)};
+    margin: ${space(2)} 0;
   `}
 `;
 
 export const Quantity = styled.p`
-  ${({ theme: { size, space } }: { theme: Theme }) => css`
+  ${({ theme: { size } }: { theme: Theme }) => css`
     font-size: ${size.small};
     margin: 0px;
   `}

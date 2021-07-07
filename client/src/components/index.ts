@@ -12,3 +12,4 @@ export { default as Cart } from './Cart';
 export { default as Orders } from './Orders';
 export { default as ProductQuantityList } from './ProductQuantityList';
 export { default as ProductsPanel } from './ProductsPanel';
+export { default as NewProductModal } from './NewProductModal';
