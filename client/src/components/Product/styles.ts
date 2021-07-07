@@ -28,6 +28,7 @@ export const ProductContentsWrapper = styled.div`
   height: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   flex-direction: column;
 `;
 
@@ -48,9 +49,28 @@ export const Title = styled.h4`
   `}
 `;
 
+export const QuantityWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
 export const Quantity = styled.p`
   ${({ theme: { size } }: { theme: Theme }) => css`
     font-size: ${size.small};
     margin: 0px;
+  `}
+`;
+
+export const AddProductsButtonWrapper = styled.div`
+  ${({ theme: { space } }: { theme: Theme }) => css`
+    height: ${space(3)};
+    width: ${space(3)};
+
+    margin-left: ${space(2)};
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
   `}
 `;

@@ -107,3 +107,13 @@ export const CREATE_PRODUCT = gql`
     }
   }
 `;
+
+export const CREATE_ITEM = gql`
+  mutation createItem($item: ItemInput!) {
+    createItem(item: $item) {
+      item {
+        id
+      }
+    }
+  }
+`;
