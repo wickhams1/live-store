@@ -41,7 +41,8 @@ const Product = ({ name, availableQuantity, id }: Props) => {
           products: [{ productId: id, quantity: 1 }],
         },
       })
-      .then(() => setLoading(false));
+      .then(() => setLoading(false))
+      .catch(() => setLoading(false));
 
     setLoading(true);
   };
