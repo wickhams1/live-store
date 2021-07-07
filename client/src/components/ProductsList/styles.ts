@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { Theme } from '../../theme';
 
 export const ProductListWrapper = styled.div`
   display: flex;
@@ -8,10 +9,8 @@ export const ProductListWrapper = styled.div`
 `;
 
 export const ProductsListSpinnerWrapper = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${({ theme: { space } }: { theme: Theme }) => css`
+    width: ${space(10)};
+    height: ${space(10)};
+  `}
 `;

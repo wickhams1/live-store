@@ -96,3 +96,14 @@ export const ADD_ITEM_TO_CART = gql`
     }
   }
 `;
+
+export const CREATE_PRODUCT = gql`
+  mutation createProduct($product: ProductInput!) {
+    createProduct(product: $product) {
+      product {
+        id
+        name
+      }
+    }
+  }
+`;

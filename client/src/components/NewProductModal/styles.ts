@@ -31,6 +31,12 @@ export const NewProductModalBackground = styled.div`
 
 export const NewProductModalContainer = styled(ProductWrapper)`
   z-index: 15;
+  align-items: center;
+`;
+
+export const NewProductModalForm = styled.form`
+  width: 100%;
+  box-sizing: border-box;
 `;
 
 export const NewProductModalInput = styled.input`
@@ -39,6 +45,15 @@ export const NewProductModalInput = styled.input`
     margin: ${space(2)} 0;
     text-align: center;
     font-weight: bold;
+    width: 100%;
+    box-sizing: border-box;
+  `}
+`;
+
+export const NewProductModalSpinnerWrapper = styled.div`
+  ${({ theme: { size, space } }: { theme: Theme }) => css`
+    width: ${space(4)};
+    height: ${space(4)};
   `}
 `;
 
