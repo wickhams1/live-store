@@ -6,8 +6,9 @@ import {
   ItemResponse,
   ItemsListResponse,
 } from '../generated';
-
 import { ItemsService } from 'src/services';
+import pubsub from '../pubsub';
+import streamIds from './streamIds';
 
 export interface Dependencies {
   itemsService: ItemsService;
@@ -28,6 +29,9 @@ const ItemResolver = ({ itemsService: { createItem, findItem, getItems } }: Depe
   Mutation: {
     async createItem(_: void, { item: itemInput }: MutationCreateItemArgs): Promise<ItemResponse> {
       const createdItem = await createItem(itemInput);
+
+      pubsub.publish(streamIds.PRODUCT_UPDATED, { productUpdated: createdItem.product });
+
       return { item: createdItem };
     },
   },

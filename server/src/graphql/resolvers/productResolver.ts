@@ -1,14 +1,12 @@
 import { IResolvers } from 'graphql-tools';
 import { MutationCreateProductArgs, QueryFindProductArgs, ProductResponse, ProductsListResponse } from '../generated';
-
 import { ProductsService } from 'src/services';
 import pubsub from '../pubsub';
+import streamIds from './streamIds';
 
 export interface Dependencies {
   productsService: ProductsService;
 }
-
-const PRODUCT_CREATED = 'PRODUCT_CREATED';
 
 const ProductResolver = ({
   productsService: { createProduct, findProduct, getProducts },
@@ -28,7 +26,7 @@ const ProductResolver = ({
     async createProduct(_: void, { product }: MutationCreateProductArgs): Promise<ProductResponse> {
       const createdProduct = await createProduct(product);
 
-      pubsub.publish(PRODUCT_CREATED, { productCreated: createdProduct });
+      pubsub.publish(streamIds.PRODUCT_CREATED, { productCreated: createdProduct });
 
       return { product: createdProduct };
     },
@@ -36,7 +34,10 @@ const ProductResolver = ({
 
   Subscription: {
     productCreated: {
-      subscribe: () => pubsub.asyncIterator([PRODUCT_CREATED]),
+      subscribe: () => pubsub.asyncIterator([streamIds.PRODUCT_CREATED]),
+    },
+    productUpdated: {
+      subscribe: () => pubsub.asyncIterator([streamIds.PRODUCT_UPDATED]),
     },
   },
 });

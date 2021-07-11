@@ -1,6 +1,6 @@
-import { useQuery } from '@apollo/client';
+import { useQuery, useSubscription } from '@apollo/client';
 import { GET_PRODUCTS } from '../../graphql/queries';
-import { PRODUCT_CREATED } from '../../graphql/subscriptions';
+import { PRODUCT_CREATED, PRODUCT_UPDATED } from '../../graphql/subscriptions';
 import { Query, Subscription } from '../../graphql/generated';
 import { Product, Spinner } from '../';
 import { ProductListWrapper, ProductsListSpinnerWrapper } from './styles';
@@ -9,6 +9,8 @@ import { useEffect, useState } from 'react';
 const Products = () => {
   const { loading, data, subscribeToMore } = useQuery<Query>(GET_PRODUCTS);
   const [initialised, setInitialised] = useState(false);
+
+  useSubscription(PRODUCT_UPDATED);
 
   useEffect(() => {
     if (!subscribeToMore || initialised) return;

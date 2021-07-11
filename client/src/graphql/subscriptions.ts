@@ -9,3 +9,12 @@ export const PRODUCT_CREATED = gql`
     }
   }
 `;
+
+export const PRODUCT_UPDATED = gql`
+  ${PRODUCT_FRAGMENT}
+  subscription {
+    productUpdated {
+      ...ProductFragment
+    }
+  }
+`;
