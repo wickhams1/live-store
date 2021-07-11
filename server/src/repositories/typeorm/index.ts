@@ -1,8 +1,11 @@
 import { createConnection } from 'typeorm';
 
 createConnection({
-  type: 'sqlite',
-  database: __dirname + '/testDB.sqlite',
+  type: 'postgres',
+  host: 'localhost',
+  port: 5432,
+  username: 'postgres',
+  database: 'store',
   entities: [__dirname + '/entities/*.ts'],
   synchronize: true,
   logging: false,
