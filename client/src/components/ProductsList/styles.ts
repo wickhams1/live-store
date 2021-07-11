@@ -7,7 +7,6 @@ export const ProductListWrapper = styled.div`
   flex-direction: row;
   height: fit-content;
   overflow-y: scroll;
-  height: 100%;
 `;
 
 export const ProductsListSpinnerWrapper = styled.div`
