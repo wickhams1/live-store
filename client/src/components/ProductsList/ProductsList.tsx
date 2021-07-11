@@ -10,7 +10,7 @@ const ProductsList = () => {
   const { loading, data, subscribeToMore } = useQuery<Query>(GET_PRODUCTS);
   const [initialised, setInitialised] = useState(false);
 
-  useSubscription(PRODUCT_UPDATED);
+  useSubscription(PRODUCT_UPDATED, { skip: !data?.getProducts?.products?.length });
 
   useEffect(() => {
     if (!subscribeToMore || initialised) return;
