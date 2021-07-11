@@ -10,8 +10,9 @@ import {
   ItemsListResponse,
   OrdersListResponse,
 } from '../generated';
-
 import { UsersService } from 'src/services';
+import pubsub from '../pubsub';
+import streamIds from './streamIds';
 
 export interface Dependencies {
   usersService: UsersService;
@@ -44,6 +45,14 @@ const UserResolver = ({
     },
     async addProductsToCart(_: void, { userId, products }: MutationAddProductsToCartArgs): Promise<UserResponse> {
       const user = await addProductsToCart({ userId, products });
+
+      products.forEach((requestedProduct) =>
+        pubsub.publish(streamIds.PRODUCT_UPDATED, {
+          productUpdated: user.cart.find((cartProduct) => cartProduct.product.id === requestedProduct.productId)
+            ?.product,
+        })
+      );
+
       return { user };
     },
   },
