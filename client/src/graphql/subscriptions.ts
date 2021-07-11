@@ -21,8 +21,8 @@ export const PRODUCT_UPDATED = gql`
 
 export const USER_UPDATED = gql`
   ${USER_FRAGMENT}
-  subscription {
-    userUpdated {
+  subscription userUpdated($userId: String!) {
+    userUpdated(userId: $userId) {
       ...UserFragment
     }
   }

@@ -1,7 +1,7 @@
 import { createContext, PropsWithChildren, useEffect, useState } from 'react';
 import { useApolloClient, ApolloError, useSubscription } from '@apollo/client';
 import { FIND_USER_BY_EMAIL_ADDRESS, CREATE_USER } from '../graphql/queries';
-import { Query, Mutation, User, UserInput } from '../graphql/generated';
+import { Query, Mutation, User, UserInput, Subscription, SubscriptionUserUpdatedArgs } from '../graphql/generated';
 import { GraphQLError } from 'graphql';
 import { USER_UPDATED } from '../graphql/subscriptions';
 
@@ -39,7 +39,10 @@ const Provider = ({ children }: PropsWithChildren<{}>) => {
   const [error, setError] = useState<ApolloError | readonly GraphQLError[]>();
   const client = useApolloClient();
 
-  useSubscription(USER_UPDATED, { skip: !loggedIn });
+  useSubscription<Subscription, SubscriptionUserUpdatedArgs>(USER_UPDATED, {
+    variables: { userId: '63982079-37b7-47bf-ae41-c41a3acd20cd' },
+    skip: !loggedIn,
+  });
 
   useEffect(() => {
     const storedUser = JSON.parse(window.localStorage.getItem('user') || '{}');

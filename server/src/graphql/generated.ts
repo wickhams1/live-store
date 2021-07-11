@@ -181,6 +181,11 @@ export type Subscription = {
   userUpdated: User;
 };
 
+
+export type SubscriptionUserUpdatedArgs = {
+  userId: Scalars['String'];
+};
+
 export type User = {
   __typename?: 'User';
   name: Scalars['String'];
@@ -403,7 +408,7 @@ export type SubscriptionResolvers<ContextType = any, ParentType extends Resolver
   _empty?: SubscriptionResolver<Maybe<ResolversTypes['String']>, "_empty", ParentType, ContextType>;
   productCreated?: SubscriptionResolver<ResolversTypes['Product'], "productCreated", ParentType, ContextType>;
   productUpdated?: SubscriptionResolver<ResolversTypes['Product'], "productUpdated", ParentType, ContextType>;
-  userUpdated?: SubscriptionResolver<ResolversTypes['User'], "userUpdated", ParentType, ContextType>;
+  userUpdated?: SubscriptionResolver<ResolversTypes['User'], "userUpdated", ParentType, ContextType, RequireFields<SubscriptionUserUpdatedArgs, 'userId'>>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {

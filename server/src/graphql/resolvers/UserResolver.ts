@@ -9,10 +9,13 @@ import {
   QueryGetUserOrdersArgs,
   ItemsListResponse,
   OrdersListResponse,
+  SubscriptionUserUpdatedArgs,
+  Subscription,
 } from '../generated';
 import { UsersService } from 'src/services';
 import pubsub from '../pubsub';
 import streamIds from './streamIds';
+import { withFilter } from 'apollo-server-express';
 
 export interface Dependencies {
   usersService: UsersService;
@@ -61,7 +64,12 @@ const UserResolver = ({
 
   Subscription: {
     userUpdated: {
-      subscribe: () => pubsub.asyncIterator([streamIds.USER_UPDATED]),
+      subscribe: withFilter(
+        () => pubsub.asyncIterator([streamIds.USER_UPDATED]),
+        (payload: Subscription, { userId }: SubscriptionUserUpdatedArgs) => {
+          return payload.userUpdated.id === userId;
+        }
+      ),
     },
   },
 });

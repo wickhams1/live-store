@@ -16,7 +16,7 @@ extend type Mutation {
 }
 
 extend type Subscription {
-  userUpdated: User!
+  userUpdated(userId: String!): User!
 }
 
 type User {
