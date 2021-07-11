@@ -13,7 +13,7 @@ export const UserPanelWrapper = styled.div`
 export const NavBar = styled.div`
   ${({ theme: { space, colours } }: { theme: Theme }) => css`
     width: 100%;
-    height: ${space(9)};
+    min-height: ${space(9)};
     background-color: ${colours.lightGrey.shadow};
     box-sizing: border-box;
 
