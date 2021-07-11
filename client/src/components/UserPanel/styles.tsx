@@ -3,7 +3,11 @@ import { Theme } from '../../theme';
 
 export const UserPanelWrapper = styled.div`
   width: 100%;
+  height: 100%;
   max-width: 400px;
+
+  display: flex;
+  flex-direction: column;
 `;
 
 export const NavBar = styled.div`
@@ -43,5 +47,7 @@ export const PanelWrapper = styled.div`
     width: 100%;
     padding: ${space(2)};
     box-sizing: border-box;
+    flex-grow: 1;
+    overflow-y: scroll;
   `}
 `;
