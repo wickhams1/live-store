@@ -63,7 +63,10 @@ export const addProductsToCart =
 
     user.cart = user.cart ? user.cart.concat(items) : items;
 
-    return usersRepo.updateUser(user);
+    await usersRepo.updateUser(user);
+
+    // Return user with latest data
+    return usersRepo.findUser(user.id) as Promise<User>;
   };
 
 export type UsersService = {

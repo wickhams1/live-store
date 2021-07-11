@@ -5,6 +5,7 @@ import {
   OrdersListResponse,
   MutationCreateOrderArgs,
   MutationCreateOrderFromUserCartArgs,
+  UserResponse,
 } from '../generated';
 
 import { OrdersService } from 'src/services';
@@ -32,9 +33,9 @@ const OrderResolver = ({
       const order = await createOrder({ userId, products });
       return { order };
     },
-    async createOrderFromUserCart(_: void, { userId }: MutationCreateOrderFromUserCartArgs): Promise<OrderResponse> {
-      const order = await createOrderFromUserCart({ userId });
-      return { order };
+    async createOrderFromUserCart(_: void, { userId }: MutationCreateOrderFromUserCartArgs): Promise<UserResponse> {
+      const user = await createOrderFromUserCart({ userId });
+      return { user };
     },
   },
 });

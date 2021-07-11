@@ -19,6 +19,50 @@ export const FIND_USER_BY_EMAIL_ADDRESS = gql`
         id
         name
         emailAddress
+        cart {
+          product {
+            id
+            name
+            availableQuantity
+          }
+        }
+        orders {
+          id
+          items {
+            product {
+              id
+              name
+              availableQuantity
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const FIND_USER_BY_ID = gql`
+  query findUser($id: String!) {
+    findUser(id: $id) {
+      user {
+        id
+        cart {
+          product {
+            id
+            name
+            availableQuantity
+          }
+        }
+        orders {
+          id
+          items {
+            product {
+              id
+              name
+              availableQuantity
+            }
+          }
+        }
       }
     }
   }
@@ -39,41 +83,23 @@ export const CREATE_USER = gql`
 export const USER_CART_TO_ORDER = gql`
   mutation createOrderFromUserCart($userId: String!) {
     createOrderFromUserCart(userId: $userId) {
-      order {
+      user {
         id
-        items {
+        cart {
           product {
+            id
             name
+            availableQuantity
           }
         }
-      }
-    }
-  }
-`;
-
-export const GET_USER_CART = gql`
-  query getUserCart($userId: String!) {
-    getUserCart(userId: $userId) {
-      items {
-        id
-        product {
-          name
+        orders {
           id
-        }
-      }
-    }
-  }
-`;
-
-export const GET_USER_ORDERS = gql`
-  query getUserOrders($userId: String!) {
-    getUserOrders(userId: $userId) {
-      orders {
-        id
-        items {
-          id
-          product {
-            name
+          items {
+            product {
+              id
+              name
+              availableQuantity
+            }
           }
         }
       }
@@ -87,9 +113,10 @@ export const ADD_ITEM_TO_CART = gql`
       user {
         id
         cart {
-          id
           product {
             name
+            id
+            availableQuantity
           }
         }
       }
@@ -103,6 +130,7 @@ export const CREATE_PRODUCT = gql`
       product {
         id
         name
+        availableQuantity
       }
     }
   }
@@ -112,7 +140,6 @@ export const CREATE_ITEM = gql`
   mutation createItem($item: ItemInput!) {
     createItem(item: $item) {
       item {
-        id
         product {
           id
           name

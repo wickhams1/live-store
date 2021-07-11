@@ -1,4 +1,4 @@
-import { Item, Order } from 'src/types/entities';
+import { Item, Order, User } from 'src/types/entities';
 import { ItemsRepository, OrdersRepository, UsersRepository } from 'src/types/repositories';
 import { errors } from '.';
 interface Dependencies {
@@ -40,7 +40,7 @@ export const createOrder =
     return ordersRepo.createOrder({ items, userId });
   };
 
-export type CreateOrderFromUserCart = ({ userId }: { userId: string }) => Promise<Order>;
+export type CreateOrderFromUserCart = ({ userId }: { userId: string }) => Promise<User>;
 
 export const createOrderFromUserCart =
   ({ ordersRepo, usersRepo }: Dependencies): CreateOrderFromUserCart =>
@@ -58,9 +58,9 @@ export const createOrderFromUserCart =
     user.cart = [];
     user.orders.push(order);
 
-    await usersRepo.updateUser(user);
+    const updatedUser = await usersRepo.updateUser(user);
 
-    return order;
+    return updatedUser;
   };
 
 export type FindOrder = (id: string) => Promise<Order | undefined>;

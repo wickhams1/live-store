@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react';
 import { useApolloClient, useQuery } from '@apollo/client';
-import { USER_CART_TO_ORDER, GET_USER_CART } from '../../graphql/queries';
+import { USER_CART_TO_ORDER, FIND_USER_BY_ID } from '../../graphql/queries';
 import { UserContext } from '../../contexts';
-import { Mutation, Query, QueryGetUserCartArgs } from '../../graphql/generated';
+import { Mutation, Query, QueryFindUserArgs } from '../../graphql/generated';
 import { CartWrapper, CartButtonWrapper, CartSpinnerWrapper } from './styles';
 import { Button, Spinner, ProductQuantityList } from '../';
 
@@ -13,14 +13,14 @@ const Cart = () => {
   const { user } = useContext(UserContext);
   const userId = user?.id || '';
 
-  const { data, loading: queryLoading } = useQuery<Query, QueryGetUserCartArgs>(GET_USER_CART, {
+  const { data, loading: queryLoading } = useQuery<Query, QueryFindUserArgs>(FIND_USER_BY_ID, {
     variables: {
-      userId,
+      id: userId,
     },
     skip: !user,
   });
 
-  const cart = data?.getUserCart?.items || [];
+  const cart = data?.findUser?.user?.cart || [];
 
   const handleOrderSubmit = () => {
     client

@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react';
 import { UserContext } from '../../contexts';
 import { useQuery } from '@apollo/client';
-import { GET_USER_ORDERS } from '../../graphql/queries';
-import { Query, QueryGetUserCartArgs } from '../../graphql/generated';
+import { FIND_USER_BY_ID } from '../../graphql/queries';
+import { Query, QueryFindUserArgs } from '../../graphql/generated';
 import { ProductQuantityList } from '../';
 import { OrdersWrapper, Divider, OrderDividerWrapper } from './styles';
 
@@ -12,14 +12,14 @@ const Orders = () => {
 
   const [openOrder, setOpenOrder] = useState('');
 
-  const { data } = useQuery<Query, QueryGetUserCartArgs>(GET_USER_ORDERS, {
+  const { data } = useQuery<Query, QueryFindUserArgs>(FIND_USER_BY_ID, {
     variables: {
-      userId,
+      id: userId,
     },
     skip: !user,
   });
 
-  const orders = data?.getUserOrders?.orders || [];
+  const orders = data?.findUser?.user?.orders || [];
 
   const numOrders = orders?.length;
 
