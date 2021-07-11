@@ -173,6 +173,12 @@ export type QueryGetUserOrdersArgs = {
   userId: Scalars['String'];
 };
 
+export type Subscription = {
+  __typename?: 'Subscription';
+  _empty?: Maybe<Scalars['String']>;
+  productCreated: Product;
+};
+
 export type User = {
   __typename?: 'User';
   name: Scalars['String'];
@@ -286,6 +292,7 @@ export type ResolversTypes = {
   ProductResponse: ResolverTypeWrapper<ProductResponse>;
   ProductsListResponse: ResolverTypeWrapper<ProductsListResponse>;
   Query: ResolverTypeWrapper<{}>;
+  Subscription: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User>;
   UserInput: UserInput;
   UserResponse: ResolverTypeWrapper<UserResponse>;
@@ -310,6 +317,7 @@ export type ResolversParentTypes = {
   ProductResponse: ProductResponse;
   ProductsListResponse: ProductsListResponse;
   Query: {};
+  Subscription: {};
   User: User;
   UserInput: UserInput;
   UserResponse: UserResponse;
@@ -389,6 +397,11 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getUserOrders?: Resolver<Maybe<ResolversTypes['OrdersListResponse']>, ParentType, ContextType, RequireFields<QueryGetUserOrdersArgs, 'userId'>>;
 };
 
+export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
+  _empty?: SubscriptionResolver<Maybe<ResolversTypes['String']>, "_empty", ParentType, ContextType>;
+  productCreated?: SubscriptionResolver<ResolversTypes['Product'], "productCreated", ParentType, ContextType>;
+};
+
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   emailAddress?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -415,6 +428,7 @@ export type Resolvers<ContextType = any> = {
   ProductResponse?: ProductResponseResolvers<ContextType>;
   ProductsListResponse?: ProductsListResponseResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Subscription?: SubscriptionResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   UserResponse?: UserResponseResolvers<ContextType>;
 };

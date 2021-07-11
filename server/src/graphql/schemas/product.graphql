@@ -16,6 +16,10 @@ extend type Mutation {
   createProduct(product: ProductInput!): ProductResponse
 }
 
+extend type Subscription {
+  productCreated: Product!
+}
+
 type Product {
   id: String!
   name: String!
