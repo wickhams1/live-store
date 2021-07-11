@@ -1,9 +1,9 @@
 import { createContext, PropsWithChildren, useEffect, useState } from 'react';
-import { useApolloClient, ApolloError } from '@apollo/client';
+import { useApolloClient, ApolloError, useSubscription } from '@apollo/client';
 import { FIND_USER_BY_EMAIL_ADDRESS, CREATE_USER } from '../graphql/queries';
-import { Query, Mutation } from '../graphql/generated';
-import { User, UserInput } from '../graphql/generated';
+import { Query, Mutation, User, UserInput } from '../graphql/generated';
 import { GraphQLError } from 'graphql';
+import { USER_UPDATED } from '../graphql/subscriptions';
 
 interface ContextState {
   initialised: boolean;
@@ -38,6 +38,8 @@ const Provider = ({ children }: PropsWithChildren<{}>) => {
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<ApolloError | readonly GraphQLError[]>();
   const client = useApolloClient();
+
+  useSubscription(USER_UPDATED, { skip: !loggedIn });
 
   useEffect(() => {
     const storedUser = JSON.parse(window.localStorage.getItem('user') || '{}');

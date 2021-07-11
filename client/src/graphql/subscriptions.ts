@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { PRODUCT_FRAGMENT } from './fragments';
+import { PRODUCT_FRAGMENT, USER_FRAGMENT } from './fragments';
 
 export const PRODUCT_CREATED = gql`
   ${PRODUCT_FRAGMENT}
@@ -15,6 +15,15 @@ export const PRODUCT_UPDATED = gql`
   subscription {
     productUpdated {
       ...ProductFragment
+    }
+  }
+`;
+
+export const USER_UPDATED = gql`
+  ${USER_FRAGMENT}
+  subscription {
+    userUpdated {
+      ...UserFragment
     }
   }
 `;

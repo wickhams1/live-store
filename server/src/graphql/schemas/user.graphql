@@ -15,6 +15,10 @@ extend type Mutation {
   addProductsToCart(userId: String!, products: [ProductRelationInput!]!): UserResponse
 }
 
+extend type Subscription {
+  userUpdated: User!
+}
+
 type User {
   name: String!
   emailAddress: String!

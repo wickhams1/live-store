@@ -9,6 +9,8 @@ import {
 } from '../generated';
 
 import { OrdersService } from 'src/services';
+import pubsub from '../pubsub';
+import streamIds from './streamIds';
 
 export interface Dependencies {
   ordersService: OrdersService;
@@ -35,6 +37,9 @@ const OrderResolver = ({
     },
     async createOrderFromUserCart(_: void, { userId }: MutationCreateOrderFromUserCartArgs): Promise<UserResponse> {
       const user = await createOrderFromUserCart({ userId });
+
+      pubsub.publish(streamIds.USER_UPDATED, { userUpdated: user });
+
       return { user };
     },
   },

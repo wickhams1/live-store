@@ -53,7 +53,15 @@ const UserResolver = ({
         })
       );
 
+      pubsub.publish(streamIds.USER_UPDATED, { userUpdated: user });
+
       return { user };
+    },
+  },
+
+  Subscription: {
+    userUpdated: {
+      subscribe: () => pubsub.asyncIterator([streamIds.USER_UPDATED]),
     },
   },
 });

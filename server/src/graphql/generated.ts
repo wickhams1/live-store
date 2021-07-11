@@ -178,6 +178,7 @@ export type Subscription = {
   _empty?: Maybe<Scalars['String']>;
   productCreated: Product;
   productUpdated: Product;
+  userUpdated: User;
 };
 
 export type User = {
@@ -402,6 +403,7 @@ export type SubscriptionResolvers<ContextType = any, ParentType extends Resolver
   _empty?: SubscriptionResolver<Maybe<ResolversTypes['String']>, "_empty", ParentType, ContextType>;
   productCreated?: SubscriptionResolver<ResolversTypes['Product'], "productCreated", ParentType, ContextType>;
   productUpdated?: SubscriptionResolver<ResolversTypes['Product'], "productUpdated", ParentType, ContextType>;
+  userUpdated?: SubscriptionResolver<ResolversTypes['User'], "userUpdated", ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
