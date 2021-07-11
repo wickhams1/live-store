@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import { CREATE_PRODUCT } from '../../graphql/queries';
 import {
   NewProductModalWrapper,
@@ -20,6 +20,27 @@ const NewProductModal = ({ onCancel }: { onCancel: () => void }) => {
   const [createProduct, { loading }] = useMutation<Mutation, MutationCreateProductArgs>(CREATE_PRODUCT, {
     variables: {
       product: { name: productName },
+    },
+    update(cache, { data }) {
+      const newProduct = data?.createProduct?.product;
+
+      cache.modify({
+        fields: {
+          getProducts({ products = [] }) {
+            const newProductRef = cache.writeFragment({
+              data: newProduct,
+              fragment: gql`
+                fragment NewProduct on Product {
+                  id
+                  name
+                  availableQuantity
+                }
+              `,
+            });
+            return [...products, newProductRef];
+          },
+        },
+      });
     },
   });
 
