@@ -6,7 +6,7 @@ import { Product, Spinner } from '../';
 import { ProductListWrapper, ProductsListSpinnerWrapper } from './styles';
 import { useEffect, useState } from 'react';
 
-const Products = () => {
+const ProductsList = () => {
   const { loading, data, subscribeToMore } = useQuery<Query>(GET_PRODUCTS);
   const [initialised, setInitialised] = useState(false);
 
@@ -46,4 +46,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default ProductsList;
