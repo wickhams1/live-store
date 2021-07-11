@@ -113,6 +113,11 @@ export const CREATE_ITEM = gql`
     createItem(item: $item) {
       item {
         id
+        product {
+          id
+          name
+          availableQuantity
+        }
       }
     }
   }

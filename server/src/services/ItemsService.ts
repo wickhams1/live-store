@@ -1,4 +1,4 @@
-import { Item } from 'src/types/entities';
+import { Item, Product } from 'src/types/entities';
 import { ItemsRepository, ProductsRepository } from 'src/types/repositories';
 
 export type CreateItem = (item: Omit<Item, 'id' | 'product'> & { productId: string }) => Promise<Item>;
@@ -25,7 +25,11 @@ export const createItem =
       throw new ProductNotFoundError();
     }
 
-    return itemsRepo.createItem({ product });
+    const item = await itemsRepo.createItem({ product });
+
+    item.product = (await productsRepo.findProduct(productId)) as Product;
+
+    return item;
   };
 
 export type FindItem = (id: string) => Promise<Item | undefined>;
