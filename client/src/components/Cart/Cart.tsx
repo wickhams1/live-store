@@ -1,15 +1,12 @@
-import { useContext, useState } from 'react';
-import { useApolloClient, useQuery } from '@apollo/client';
+import { useContext } from 'react';
+import { useQuery, useMutation } from '@apollo/client';
 import { USER_CART_TO_ORDER, FIND_USER_BY_ID } from '../../graphql/queries';
 import { UserContext } from '../../contexts';
-import { Mutation, Query, QueryFindUserArgs } from '../../graphql/generated';
+import { Mutation, Query, QueryFindUserArgs, MutationCreateOrderFromUserCartArgs } from '../../graphql/generated';
 import { CartWrapper, CartButtonWrapper, CartSpinnerWrapper } from './styles';
 import { Button, Spinner, ProductQuantityList } from '../';
 
 const Cart = () => {
-  const client = useApolloClient();
-  const [mutationLoading, setMutationLoading] = useState(false);
-
   const { user } = useContext(UserContext);
   const userId = user?.id || '';
 
@@ -19,19 +16,19 @@ const Cart = () => {
     },
     skip: !user,
   });
+  const [userCartToOrder, { loading: mutationLoading }] = useMutation<Mutation, MutationCreateOrderFromUserCartArgs>(
+    USER_CART_TO_ORDER,
+    {
+      variables: {
+        userId,
+      },
+    }
+  );
 
   const cart = data?.findUser?.user?.cart || [];
 
   const handleOrderSubmit = () => {
-    client
-      .mutate<Mutation>({
-        mutation: USER_CART_TO_ORDER,
-        variables: {
-          userId: user?.id,
-        },
-      })
-      .then(() => setMutationLoading(false));
-    setMutationLoading(true);
+    userCartToOrder();
   };
 
   return (

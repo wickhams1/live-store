@@ -1,5 +1,5 @@
-import { useContext, useState } from 'react';
-import { useApolloClient } from '@apollo/client';
+import { useContext } from 'react';
+import { useMutation } from '@apollo/client';
 import {
   Product as ProductType,
   Mutation,
@@ -22,29 +22,28 @@ import { UserContext } from '../../contexts';
 interface Props extends ProductType {}
 
 const Product = ({ name, availableQuantity, id }: Props) => {
-  const client = useApolloClient();
-  const [loading, setLoading] = useState(false);
-
   const { user, loggedIn } = useContext(UserContext);
   const userId = user?.id || '';
 
+  const [createItem] = useMutation<Mutation, MutationCreateItemArgs>(CREATE_ITEM, {
+    variables: { item: { productId: id } },
+  });
+  const [addItemToCart, { loading: addItemToCartLoading }] = useMutation<Mutation, MutationAddProductsToCartArgs>(
+    ADD_ITEM_TO_CART,
+    {
+      variables: {
+        userId,
+        products: [{ productId: id, quantity: 1 }],
+      },
+    }
+  );
+
   const addItem = () => {
-    client.mutate<Mutation, MutationCreateItemArgs>({ mutation: CREATE_ITEM, variables: { item: { productId: id } } });
+    createItem();
   };
 
   const addToCart = () => {
-    client
-      .mutate<Mutation, MutationAddProductsToCartArgs>({
-        mutation: ADD_ITEM_TO_CART,
-        variables: {
-          userId,
-          products: [{ productId: id, quantity: 1 }],
-        },
-      })
-      .then(() => setLoading(false))
-      .catch(() => setLoading(false));
-
-    setLoading(true);
+    addItemToCart().catch((e) => console.error(e));
   };
 
   return (
@@ -61,7 +60,7 @@ const Product = ({ name, availableQuantity, id }: Props) => {
 
           {loggedIn && (
             <ProductButtonWrapper>
-              <Button onClick={addToCart} disabled={loading || !availableQuantity}>
+              <Button onClick={addToCart} disabled={addItemToCartLoading || !availableQuantity}>
                 Add to Cart
               </Button>
             </ProductButtonWrapper>

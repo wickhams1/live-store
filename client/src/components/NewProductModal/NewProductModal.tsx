@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useApolloClient } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { CREATE_PRODUCT } from '../../graphql/queries';
 import {
   NewProductModalWrapper,
@@ -16,26 +16,21 @@ import { Mutation, MutationCreateProductArgs } from '../../graphql/generated';
 
 const NewProductModal = ({ onCancel }: { onCancel: () => void }) => {
   const [productName, setProductName] = useState('');
-  const [loading, setLoading] = useState(false);
 
-  const client = useApolloClient();
+  const [createProduct, { loading }] = useMutation<Mutation, MutationCreateProductArgs>(CREATE_PRODUCT, {
+    variables: {
+      product: { name: productName },
+    },
+  });
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!productName) return;
 
-    setLoading(true);
-
-    client
-      .mutate<Mutation, MutationCreateProductArgs>({
-        mutation: CREATE_PRODUCT,
-        variables: { product: { name: productName } },
-      })
-      .then(() => {
-        setLoading(false);
-        onCancel();
-      });
+    createProduct().then(() => {
+      onCancel();
+    });
   };
 
   const cancelHandler = () => {
