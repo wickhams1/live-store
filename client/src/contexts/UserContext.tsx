@@ -40,7 +40,7 @@ const Provider = ({ children }: PropsWithChildren<{}>) => {
   const client = useApolloClient();
 
   useSubscription<Subscription, SubscriptionUserUpdatedArgs>(USER_UPDATED, {
-    variables: { userId: '63982079-37b7-47bf-ae41-c41a3acd20cd' },
+    variables: { userId: user?.id || '' },
     skip: !loggedIn,
   });
 

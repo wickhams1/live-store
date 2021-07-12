@@ -5,6 +5,7 @@ createConnection({
   host: 'localhost',
   port: 5432,
   username: 'postgres',
+  password: 'postgres',
   database: 'store',
   entities: [__dirname + '/entities/*.ts'],
   synchronize: true,
